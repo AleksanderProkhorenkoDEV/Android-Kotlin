@@ -6,9 +6,9 @@ fun main() {
     println(personOne.getPerson())
 
     println("Enter your name:")
-    val name: String = readln();
+    val name: String = readln()
     println("Enter your last name:")
-    val lastName: String = readln();
+    val lastName: String = readln()
     println("Enter your age:")
     val age: Int = readln().toInt()
 
