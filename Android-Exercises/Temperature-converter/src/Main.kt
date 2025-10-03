@@ -9,7 +9,14 @@ Fahrenheit to Kelvin: K = 5/9 (° F - 32) + 273.15
 Note that the String.format("%.2f", /* measurement */ ) method is used to convert a number into a String type with 2 decimal places.
  */
 fun main() {
-    // Fill in the code.
+    printFinalTemperature(27.0, "Celsius", "Fahrenheit") { celsius ->
+        (9.toDouble() / 5.toDouble() * celsius) + 32
+    }
+    printFinalTemperature(350.00, "Kelvin", "Celsius") { kelvin -> kelvin - 273.15 }
+    printFinalTemperature(10.00, "Fahrenheit", "Kelvin") { fahrenheit ->
+        5.toDouble() / 9.toDouble() * (fahrenheit - 32) + 273.15
+    }
+
 }
 
 
