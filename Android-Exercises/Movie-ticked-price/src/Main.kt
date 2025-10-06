@@ -23,17 +23,12 @@ fun main() {
 }
 
 fun ticketPrice(age: Int, isMonday: Boolean): Int {
-    if (!validateAge(age)) return -1
-
     val price = when {
-        age <= 12 -> 15
+        age in 1..12 -> 15
         age in 13..60 -> if (isMonday) 25 else 30
-        else -> 20
+        age in 61..100 -> 20
+        else -> -1
     }
 
     return price
-}
-
-fun validateAge(age: Int): Boolean {
-    return age in 1..100
 }
