@@ -81,11 +81,13 @@ fun SearchBar(
 // Step: Align your body - Alignment
 @Composable
 fun AlignYourBodyElement(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    textResource: Int  = R.string.ab1_inversions,
+    imageResource: Int = R.drawable.ab1_inversions
 ) {
     Column(modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Image(
-            painter = painterResource(R.drawable.ab1_inversions),
+            painter = painterResource(imageResource),
             contentDescription = null,
             modifier
                 .size(90.dp)
@@ -93,7 +95,7 @@ fun AlignYourBodyElement(
             contentScale = ContentScale.Crop,
         )
         Text(
-            text = stringResource(R.string.ab1_inversions),
+            text = stringResource(textResource),
             style = MaterialTheme.typography.bodyMedium,
             modifier = modifier
                 .padding(bottom = 8.dp, top = 24.dp)
