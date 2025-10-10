@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">BasicStateCodelab</string>
-    <string name="water_counter_text">You\'ve had $d glasses.</string>
+    <string name="water_counter_text">You\'ve had %1$s glasses.</string>
+    <string name="add_water">Add one</string>
 </resources>
