@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">BasicStateCodelab</string>
+    <string name="water_counter_text">You\'ve had $d glasses.</string>
+</resources>
