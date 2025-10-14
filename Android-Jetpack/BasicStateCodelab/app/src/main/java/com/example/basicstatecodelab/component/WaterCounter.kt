@@ -25,41 +25,23 @@ fun WaterCounter(modifier: Modifier = Modifier) {
         var count by remember { mutableIntStateOf(0) }
 
         if (count > 0) {
-            var showTask by remember { mutableStateOf(true) }
-            if (showTask) {
-                WellnessTaskItem(
-                    onClose = { showTask = false },
-                    taskName = stringResource(R.string.walk_today_question)
-                )
-            }
+            Text(
+                text = stringResource(R.string.water_counter_text, count),
+            )
         }
 
-        Text(
-            text = stringResource(R.string.water_counter_text, count),
-        )
-        Row(
-            modifier = Modifier.padding(top = 8.dp)
+
+        Button(
+            onClick = { count++ },
+            modifier = Modifier.padding(8.dp),
+            enabled = count < 10
         ) {
-            Button(
-                onClick = { count++ },
-                modifier = Modifier.padding(8.dp),
-                enabled = count < 10
-            ) {
-                Text(
-                    text = stringResource(R.string.add_water),
-                    modifier = Modifier.padding(8.dp)
-                )
-            }
-            Button(
-                onClick = { count = 0 },
-                modifier = Modifier.padding(8.dp),
-                enabled = count < 10
-            ) {
-                Text(
-                    text = stringResource(R.string.clear_water),
-                    modifier = Modifier.padding(8.dp)
-                )
-            }
+            Text(
+                text = stringResource(R.string.add_water),
+                modifier = Modifier.padding(8.dp)
+            )
         }
+
+
     }
 }
