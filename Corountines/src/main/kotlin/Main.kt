@@ -27,7 +27,7 @@ suspend fun greet() {
 }
 
 suspend fun performBackgroundWork() = coroutineScope {
-    //This don't block the scope, make a new thread and execute the logic.
+    //That don't block the scope, make a new thread and execute the logic.
     this.launch {
         delay(100.milliseconds)
         println("Performing background work")
