@@ -1,5 +1,7 @@
 package com.example.first_movile_app.screen
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -7,8 +9,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
@@ -21,6 +27,7 @@ import com.example.first_movile_app.components.ItemListColumn
 import com.example.first_movile_app.viewModel.TaskViewModel
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainLayout(
     modifier: Modifier = Modifier,
@@ -33,7 +40,6 @@ fun MainLayout(
         modifier = modifier
             .padding(8.dp)
             .fillMaxSize()
-            .border(width = 1.dp, color = colorResource(R.color.purple_500))
     ) {
         Text(
             text = stringResource(R.string.app_name).uppercase(),
@@ -41,14 +47,15 @@ fun MainLayout(
             modifier = Modifier
                 .padding(vertical = 6.dp)
                 .fillMaxWidth()
-                .border(width = 1.dp, color = colorResource(R.color.purple_500))
             )
-        ItemListColumn(task, callbackChangeStatus = { task, checked ->
-            viewModel.changeTaskStatus(task, checked)
-        })
+        ItemListColumn(
+            tasks = task,
+            callbackChangeStatus = { task, checked -> viewModel.changeTaskStatus(task, checked)},
+        )
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
 @Composable
 fun MainLayoutPreview(
