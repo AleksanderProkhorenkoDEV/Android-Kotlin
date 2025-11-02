@@ -18,10 +18,10 @@ interface ItemDao {
     fun getAllItems(): Flow<List<Item>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(item: Item){}
+    suspend fun insert(item: Item)
 
     @Update()
-    suspend fun update(item: Item){}
+    suspend fun update(item: Item)
 
     @Delete()
     suspend fun delete(item: Item)

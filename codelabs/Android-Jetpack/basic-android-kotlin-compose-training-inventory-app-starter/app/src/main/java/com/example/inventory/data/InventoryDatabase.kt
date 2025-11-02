@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(entities = [Item::class], version = 1, exportSchema = false)
 abstract class InventoryDatabase : RoomDatabase() {
@@ -16,14 +17,22 @@ abstract class InventoryDatabase : RoomDatabase() {
         private var Instance: InventoryDatabase? = null
 
         fun getDatabase(context: Context): InventoryDatabase {
-            Log.d("db","initialize function running")
-
-            if (Instance != null) Log.d("db", "database exists") else Log.d("db", "doesnt exist")
             return Instance ?: synchronized(this) {
-                Room.databaseBuilder(context, InventoryDatabase::class.java, "inventory")
+                Instance ?: Room.databaseBuilder(
+                    context.applicationContext,
+                    InventoryDatabase::class.java,
+                    "inventory_database"
+                )
                     .fallbackToDestructiveMigration()
+                    .addCallback(object : RoomDatabase.Callback() {
+                        override fun onCreate(db: SupportSQLiteDatabase) {
+                            super.onCreate(db)
+                        }
+                    })
                     .build()
-                    .also { Instance = it }
+                    .also {
+                        Instance = it
+                    }
             }
         }
     }
