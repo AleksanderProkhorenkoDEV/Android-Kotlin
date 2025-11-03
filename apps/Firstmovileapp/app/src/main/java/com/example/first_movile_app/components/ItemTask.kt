@@ -88,7 +88,7 @@ fun ItemTask(
 fun ItemTaskPreview(
     modifier: Modifier = Modifier
 ) {
-    val task = Task(5, "Exam", "Exam of Android, you will make a Task app", LocalDate.now())
+    val task = Task(5, "Exam", "Exam of Android, you will make a Task app", LocalDate.now(), true)
     ItemTask(
         task = task,
         isChecked = true,
