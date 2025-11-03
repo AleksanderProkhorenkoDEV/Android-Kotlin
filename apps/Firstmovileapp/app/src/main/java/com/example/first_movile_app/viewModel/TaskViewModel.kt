@@ -3,7 +3,7 @@ package com.example.first_movile_app.viewModel
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
-import com.example.first_movile_app.dataBase.Task
+import com.example.first_movile_app.dataBase.entities.Task
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
