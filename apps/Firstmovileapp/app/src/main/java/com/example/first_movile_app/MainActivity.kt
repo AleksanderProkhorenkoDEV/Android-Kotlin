@@ -10,6 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.first_movile_app.di.AppContainer
 import com.example.first_movile_app.screen.MainLayout
 import com.example.first_movile_app.ui.theme.FirstmovileappTheme
 
@@ -18,6 +19,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val appContainer = AppContainer(this)
         setContent {
             FirstmovileappTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) {
