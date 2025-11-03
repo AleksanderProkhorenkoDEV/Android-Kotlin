@@ -1,4 +1,4 @@
-package com.example.first_movile_app.viewModel
+package com.example.first_movile_app.ui.theme.viewModel
 
 import android.os.Build
 import androidx.annotation.RequiresApi
