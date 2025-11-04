@@ -9,5 +9,4 @@ data class Task(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     var text: String,
     var description: String,
-    var endDate: LocalDate, //TODO: make a Typeconvert
     var isChecked: Boolean)
