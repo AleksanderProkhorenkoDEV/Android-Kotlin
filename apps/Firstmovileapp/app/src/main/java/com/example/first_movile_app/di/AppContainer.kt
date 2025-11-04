@@ -3,8 +3,13 @@ package com.example.first_movile_app.di
 import android.content.Context
 import com.example.first_movile_app.dataBase.TaskDataBase
 import com.example.first_movile_app.dataBase.repositories.OffileTaskRepository
+import com.example.first_movile_app.dataBase.repositories.TaskRepository
 
-class AppContainer(private val context: Context) {
+interface AppContainer {
+    val taskRepository: TaskRepository
+}
+
+class AppDataContainer(private val context: Context): AppContainer {
     private val database by lazy {
         TaskDataBase.getInstance(context = context)
     }
@@ -13,7 +18,7 @@ class AppContainer(private val context: Context) {
         database.taskDao()
     }
 
-    private val taskRepository by lazy {
+    override val taskRepository by lazy {
         OffileTaskRepository(taskDao = taskDao)
     }
 }
