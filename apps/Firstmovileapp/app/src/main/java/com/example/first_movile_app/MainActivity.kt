@@ -1,26 +1,26 @@
 package com.example.first_movile_app
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.first_movile_app.di.AppContainer
-import com.example.first_movile_app.screen.MainLayout
+import com.example.first_movile_app.ui.theme.screen.MainLayout
 import com.example.first_movile_app.ui.theme.FirstmovileappTheme
 
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
-        val appContainer = AppContainer(this)
         setContent {
             FirstmovileappTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) {
@@ -32,6 +32,7 @@ class MainActivity : ComponentActivity() {
 }
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
 @Composable
 fun TaskPreview() {
