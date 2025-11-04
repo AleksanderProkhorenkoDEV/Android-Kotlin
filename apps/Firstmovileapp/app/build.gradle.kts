@@ -43,6 +43,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     val room_version = "2.8.3"
     ksp("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-runtime:${room_version}")
