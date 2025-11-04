@@ -1,4 +1,4 @@
-package com.example.first_movile_app.screen
+package com.example.first_movile_app.ui.theme.screen
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -18,17 +18,20 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.first_movile_app.R
 import com.example.first_movile_app.components.ItemListColumn
+import com.example.first_movile_app.dataBase.entities.Task
 import com.example.first_movile_app.ui.theme.viewModel.TaskViewModel
+import com.example.first_movile_app.ui.theme.viewModel.ViewModalContainer
+import kotlinx.coroutines.flow.Flow
 
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainLayout(
     modifier: Modifier = Modifier,
-    viewModel: TaskViewModel = viewModel(),
+    viewModel: TaskViewModel = viewModel(factory = ViewModalContainer.Factory),
 ) {
 
-    val task by viewModel.tasks.collectAsState()
+    val tasks by viewModel.tasks.collectAsState(initial = emptyList())
 
     Column(
         modifier = modifier
@@ -43,8 +46,10 @@ fun MainLayout(
                 .fillMaxWidth()
             )
         ItemListColumn(
-            tasks = task,
-            callbackChangeStatus = { task, checked -> viewModel.changeTaskStatus(task, checked)},
+            tasks = tasks,
+            callbackChangeStatus = {task, isChecked ->
+                viewModel.updateChecked(task, isChecked)
+            },
         )
     }
 }
