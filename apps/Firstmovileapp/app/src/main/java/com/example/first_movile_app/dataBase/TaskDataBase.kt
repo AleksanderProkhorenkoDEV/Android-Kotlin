@@ -27,6 +27,7 @@ abstract class  TaskDataBase : RoomDatabase() {
                 TaskDataBase::class.java,
                 "task.db"
             )
+                .fallbackToDestructiveMigration(true)
                 .build()
     }
 }
