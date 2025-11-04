@@ -76,7 +76,6 @@ fun ItemTask(
             ) {
                 Text(task.description)
                 Spacer(modifier = Modifier.height(8.dp))
-                Text("The end date is: ${task.endDate}")
             }
         }
     }
@@ -88,7 +87,7 @@ fun ItemTask(
 fun ItemTaskPreview(
     modifier: Modifier = Modifier
 ) {
-    val task = Task(5, "Exam", "Exam of Android, you will make a Task app", LocalDate.now(), true)
+    val task = Task(5, "Exam", "Exam of Android, you will make a Task app",  true)
     ItemTask(
         task = task,
         isChecked = true,

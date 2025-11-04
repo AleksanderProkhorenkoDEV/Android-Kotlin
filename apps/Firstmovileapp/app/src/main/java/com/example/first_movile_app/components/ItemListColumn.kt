@@ -26,7 +26,7 @@ fun ItemListColumn(
         ) { taskItem ->
             ItemTask(
                 task = taskItem,
-                isChecked = taskItem.checked,
+                isChecked = taskItem.isChecked,
                 callbackChecked = { checked -> callbackChangeStatus(taskItem, checked) },
             )
         }
@@ -38,10 +38,10 @@ fun ItemListColumn(
 @Composable
 fun ItemListColumnPreview() {
     val tasks = listOf<Task>(
-        Task(id = 1, text = "Finish the App", description = "a lot of text", endDate = LocalDate.now()),
-        Task(id = 2, text = "Learn compose", description = "a lot of text", endDate = LocalDate.now()),
-        Task(id = 3, text = "make my first mobile app", description = "a lot of text", endDate = LocalDate.now()),
-        Task(id = 4, text = "Became a senior developer", description = "a lot of text", endDate = LocalDate.now()),
+        Task(id = 1, text = "Finish the App", description = "a lot of text", true),
+        Task(id = 2, text = "Learn compose", description = "a lot of text", false),
+        Task(id = 3, text = "make my first mobile app", description = "a lot of text", false),
+        Task(id = 4, text = "Became a senior developer", description = "a lot of text",  false),
     )
 
     ItemListColumn(
