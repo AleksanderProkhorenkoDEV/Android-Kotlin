@@ -1,4 +1,4 @@
-package com.example.first_movile_app.ui.theme.screen
+package com.example.first_movile_app.ui.screen
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -17,16 +17,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.first_movile_app.R
-import com.example.first_movile_app.components.ItemListColumn
-import com.example.first_movile_app.dataBase.entities.Task
-import com.example.first_movile_app.ui.theme.viewModel.TaskViewModel
-import com.example.first_movile_app.ui.theme.viewModel.ViewModalContainer
-import kotlinx.coroutines.flow.Flow
+import com.example.first_movile_app.ui.components.ItemListColumn
+import com.example.first_movile_app.viewModel.TaskViewModel
+import com.example.first_movile_app.viewModel.ViewModalContainer
 
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun MainLayout(
+fun MainScreen(
     modifier: Modifier = Modifier,
     viewModel: TaskViewModel = viewModel(factory = ViewModalContainer.Factory),
 ) {
@@ -60,5 +58,5 @@ fun MainLayout(
 fun MainLayoutPreview(
     modifier: Modifier = Modifier
 ) {
-    MainLayout(modifier)
+    MainScreen(modifier)
 }

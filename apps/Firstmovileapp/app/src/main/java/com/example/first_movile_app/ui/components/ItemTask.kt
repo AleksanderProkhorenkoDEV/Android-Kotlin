@@ -1,4 +1,4 @@
-package com.example.first_movile_app.components
+package com.example.first_movile_app.ui.components
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -25,7 +25,6 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.first_movile_app.dataBase.entities.Task
-import java.time.LocalDate
 
 @Composable
 fun ItemTask(

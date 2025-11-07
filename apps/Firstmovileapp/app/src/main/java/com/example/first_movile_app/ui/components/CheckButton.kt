@@ -1,4 +1,4 @@
-package com.example.first_movile_app.components
+package com.example.first_movile_app.ui.components
 
 import androidx.compose.material3.Checkbox
 import androidx.compose.runtime.Composable

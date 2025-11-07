@@ -1,4 +1,4 @@
-package com.example.first_movile_app.components
+package com.example.first_movile_app.ui.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown

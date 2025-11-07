@@ -16,28 +16,11 @@ import com.example.first_movile_app.ui.theme.screen.MainLayout
 import com.example.first_movile_app.ui.theme.FirstmovileappTheme
 
 class MainActivity : ComponentActivity() {
-    @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            FirstmovileappTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) {
-                    MainLayout()
-                }
-            }
+            TaskApp()
         }
     }
 }
-
-
-@RequiresApi(Build.VERSION_CODES.O)
-@Preview(showBackground = true)
-@Composable
-fun TaskPreview() {
-    FirstmovileappTheme {
-        MainLayout()
-    }
-}
-
