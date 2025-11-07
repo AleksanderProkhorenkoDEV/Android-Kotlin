@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.first_movile_app.ui.screen.AccountSettingsScreen
 import com.example.first_movile_app.ui.screen.CreateTaskScreen
 import com.example.first_movile_app.ui.screen.MainScreen
 
@@ -26,6 +27,9 @@ fun TaskNavHost(
         }
         composable(route = TaskDestination.CreateTask.route) {
             CreateTaskScreen()
+        }
+        composable(route = TaskDestination.AccountSettings.route){
+            AccountSettingsScreen()
         }
     }
 }
