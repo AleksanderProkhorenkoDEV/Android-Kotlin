@@ -8,9 +8,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.first_movile_app.ui.theme.FirstmovileappTheme
 import com.example.first_movile_app.navigation.TaskNavHost
+import com.example.first_movile_app.navigation.taskDestinationBottomBar
+import com.example.first_movile_app.ui.components.BottomBar
 
 @RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -19,7 +22,15 @@ fun TaskApp() {
     FirstmovileappTheme {
         val navController = rememberNavController()
         Scaffold(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
+            bottomBar = {
+                BottomBar(
+                    allScreens = taskDestinationBottomBar,
+                    onBottomSelected = { newScreen ->
+                        navController.navigateSingleTopTo(newScreen.route)
+                    }
+                )
+            }
         ) { innerPadding ->
             TaskNavHost(
                 navController = navController,
@@ -29,4 +40,7 @@ fun TaskApp() {
     }
 }
 
-
+fun NavHostController.navigateSingleTopTo(route: String) =
+    this.navigate(route) {
+        launchSingleTop = true
+    }
