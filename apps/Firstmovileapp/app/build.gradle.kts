@@ -44,12 +44,22 @@ android {
 
 dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+    //versions
     val room_version = "2.8.3"
+    val navigation_version = "2.9.6"
+    val viewModel_version = "2.9.2"
+
+    //Room dep
     ksp("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-runtime:${room_version}")
+    implementation("androidx.room:room-runtime:$room_version")
 
+    //Navigation dep
+    implementation("androidx.navigation:navigation-compose:$navigation_version")
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.2")
+    //ViewModel dep
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$viewModel_version")
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
