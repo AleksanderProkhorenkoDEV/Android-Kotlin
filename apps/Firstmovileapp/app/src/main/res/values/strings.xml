@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">Taks resume</string>
     <string name="create_task_title_form">Create Taks</string>
+
+    <!-- Labels and placeholders of create Task -->
+    <string name="create_form_name_label">Introduce the name</string>
+    <string name="create_form_name_placeholder">Write the first task…</string>
+    <string name="create_form_description_label">Introduce the description</string>
+    <string name="create_form_description_placeholder">The task description example…</string>
+
+    <!-- Error messages -->
+    <string name="empty_field">The field is required</string>
+    <string name="too_long">The field is to long, max 254 characters.</string>
+
+    <!-- Button messages -->
+    <string name="create_task_button">Save Task</string>
+    <string name="loading_button">Loading…</string>
 </resources>
