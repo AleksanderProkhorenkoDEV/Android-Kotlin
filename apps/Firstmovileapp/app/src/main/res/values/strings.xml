@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Taks resume</string>
+    <string name="create_task_title_form">Create Taks</string>
 </resources>
