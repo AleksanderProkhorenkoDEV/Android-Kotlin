@@ -7,8 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.first_movile_app.dataBase.entities.Task
 import com.example.first_movile_app.dataBase.repositories.OffileTaskRepository
 import com.example.first_movile_app.utils.FormError
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -26,8 +28,10 @@ class CreateTaskViewModel(
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CreateTaskFormState())
+    private val _snackbarMessage = MutableSharedFlow<String>()
 
     val uiState: StateFlow<CreateTaskFormState> = _uiState
+    val snackbarMessage = _snackbarMessage.asSharedFlow()
 
     fun onChangeName(newName: String) {
         _uiState.update { it ->
@@ -48,20 +52,19 @@ class CreateTaskViewModel(
     }
 
     fun saveTask() {
-        _uiState.update { it ->
-            it.copy(
-                isLoading = true
-            )
-        }
 
         val currentState = _uiState.value
-
         val checkedState = currentState.copy(
             nameError = validateInputs(currentState.name),
             descriptionError = validateInputs(currentState.description)
         )
 
         if (checkedState.descriptionError.isNullOrEmpty() && checkedState.nameError.isNullOrEmpty()) {
+            _uiState.update { it ->
+                it.copy(
+                    isLoading = true
+                )
+            }
             val task = Task(
                 text = checkedState.name,
                 description = checkedState.description,
@@ -72,13 +75,15 @@ class CreateTaskViewModel(
                 try {
                     taskRepository.insertTask(task)
 
-                    _uiState.update { CreateTaskFormState() }
+                    _snackbarMessage.emit("The task was created succesfully")
                 } catch (e: Exception) {
                     Log.d("Error", "Error al insertar en la base de datos")
                 } finally {
+                    Log.d("INFO", "pasa por el finllay")
                     _uiState.update { it ->
                         it.copy(isLoading = false)
                     }
+                    _uiState.update { CreateTaskFormState() }
                 }
             }
         }
