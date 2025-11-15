@@ -26,7 +26,9 @@ fun TaskNavHost(
         modifier = modifier,
     ) {
         composable<TaskList> {
-            MainScreen()
+            MainScreen( onNavigateToEditScreen = { id ->
+                navController.navigate(EditTask(id = id))
+            })
         }
         composable<CreateTask> {
             CreateTaskScreen()

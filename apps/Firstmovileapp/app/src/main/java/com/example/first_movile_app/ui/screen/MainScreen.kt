@@ -25,6 +25,7 @@ import com.example.first_movile_app.viewModel.ViewModalContainer
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainScreen(
+    onNavigateToEditScreen: (id: Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: TaskViewModel = viewModel(factory = ViewModalContainer.Factory),
 ) {
@@ -58,5 +59,5 @@ fun MainScreen(
 fun MainLayoutPreview(
     modifier: Modifier = Modifier
 ) {
-    MainScreen(modifier)
+    MainScreen({},modifier)
 }
