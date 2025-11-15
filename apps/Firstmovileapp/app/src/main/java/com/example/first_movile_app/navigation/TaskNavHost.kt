@@ -14,15 +14,6 @@ import com.example.first_movile_app.ui.screen.EditTaskScreen
 import com.example.first_movile_app.ui.screen.MainScreen
 import kotlinx.serialization.Serializable
 
-@Serializable
-object Home
-@Serializable
-object Settings
-@Serializable
-object CreateTask
-@Serializable
-data class EditTask(val id: Int)
-
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun TaskNavHost(
@@ -31,20 +22,20 @@ fun TaskNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Home,
+        startDestination = TaskList,
         modifier = modifier,
     ) {
-        composable<Home> {
+        composable<TaskList> {
             MainScreen()
         }
         composable<CreateTask> {
             CreateTaskScreen()
         }
-        composable<Settings> {
+        composable<AccountSettings> {
             AccountSettingsScreen()
         }
 
-        composable<TaskDestination.EditTask>{ backStackEntry ->
+        composable<EditTask>{ backStackEntry ->
             val params = backStackEntry.toRoute<EditTask>()
             EditTaskScreen(id = params.id)
         }

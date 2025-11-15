@@ -6,22 +6,27 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
+import kotlinx.serialization.Serializable
 
+@Serializable
+object TaskList
+@Serializable
+object CreateTask
+@Serializable
+object AccountSettings
 
-sealed class TaskDestination(
-    val route: String,
+@Serializable
+data class EditTask(val id: Int)
+
+data class TaskDestination(
+    val route: Any,
     val title: String,
     val icon: ImageVector
 ) {
-    object TaskList : TaskDestination("taskList", "ToDo List", Icons.Default.Home)
-    object CreateTask : TaskDestination("createTask", "Create new Task", Icons.Default.AddCircle)
-    object AccountSettings : TaskDestination("accountSettings", "Settings", Icons.Default.Settings)
-
-    object EditTask: TaskDestination("editTask/{id}", "Edit category", Icons.Default.Edit)
 }
 
 val taskDestinationBottomBar = listOf(
-    TaskDestination.TaskList,
-    TaskDestination.CreateTask,
-    TaskDestination.AccountSettings
+    TaskDestination(TaskList, "Task list", Icons.Default.Home),
+    TaskDestination(CreateTask, "Create task", Icons.Default.AddCircle),
+    TaskDestination(AccountSettings, "Settings", Icons.Default.Edit)
 )
