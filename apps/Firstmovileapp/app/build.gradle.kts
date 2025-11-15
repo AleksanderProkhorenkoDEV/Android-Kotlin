@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("com.google.devtools.ksp")
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.0.21"
 }
 
 android {
@@ -43,7 +44,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     //versions
     val room_version = "2.8.3"
@@ -56,6 +56,7 @@ dependencies {
 
     //Navigation dep
     implementation("androidx.navigation:navigation-compose:$navigation_version")
+    implementation(libs.androidx.navigation.runtime.ktx)
 
     //ViewModel dep
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$viewModel_version")
