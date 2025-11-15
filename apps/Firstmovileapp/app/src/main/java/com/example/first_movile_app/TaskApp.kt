@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.first_movile_app.ui.theme.FirstmovileappTheme
 import com.example.first_movile_app.navigation.TaskNavHost
@@ -27,7 +26,9 @@ fun TaskApp() {
                 BottomBar(
                     allScreens = taskDestinationBottomBar,
                     onBottomSelected = { newScreen ->
-                        navController.navigateSingleTopTo(newScreen.route)
+                        navController.navigate(route = newScreen.route){
+                            launchSingleTop = true
+                        }
                     }
                 )
             }
@@ -39,8 +40,3 @@ fun TaskApp() {
         }
     }
 }
-
-fun NavHostController.navigateSingleTopTo(route: String) =
-    this.navigate(route) {
-        launchSingleTop = true
-    }
