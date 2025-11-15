@@ -12,7 +12,6 @@ import com.example.first_movile_app.ui.screen.AccountSettingsScreen
 import com.example.first_movile_app.ui.screen.CreateTaskScreen
 import com.example.first_movile_app.ui.screen.EditTaskScreen
 import com.example.first_movile_app.ui.screen.MainScreen
-import kotlinx.serialization.Serializable
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
