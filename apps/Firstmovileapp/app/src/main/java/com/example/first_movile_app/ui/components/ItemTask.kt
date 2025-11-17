@@ -40,6 +40,7 @@ import com.example.first_movile_app.dataBase.entities.Task
 fun ItemTask(
     task: Task,
     isChecked: Boolean,
+    onNavigateToEditScreen: (id: Int) -> Unit,
     callbackChecked: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -90,7 +91,7 @@ fun ItemTask(
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Button(onClick = {}) {
+                    Button(onClick = { onNavigateToEditScreen(task.id.toInt()) }) {
                         Icon(
                             imageVector = Icons.Default.Edit,
                             contentDescription = stringResource(R.string.edit_task),
@@ -131,6 +132,7 @@ fun ItemTaskPreview(
     ItemTask(
         task = task,
         isChecked = true,
+        onNavigateToEditScreen = {},
         callbackChecked = {},
         modifier = modifier
     )

@@ -46,6 +46,7 @@ fun MainScreen(
             )
         ItemListColumn(
             tasks = tasks,
+            onNavigateToEditScreen = onNavigateToEditScreen,
             callbackChangeStatus = {task, isChecked ->
                 viewModel.updateChecked(task, isChecked)
             },

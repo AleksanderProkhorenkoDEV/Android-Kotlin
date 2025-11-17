@@ -12,6 +12,7 @@ import com.example.first_movile_app.dataBase.entities.Task
 @Composable
 fun ItemListColumn(
     tasks: List<Task>,
+    onNavigateToEditScreen: (id: Int) -> Unit,
     callbackChangeStatus: (Task, Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -26,6 +27,7 @@ fun ItemListColumn(
             ItemTask(
                 task = taskItem,
                 isChecked = taskItem.isChecked,
+                onNavigateToEditScreen = onNavigateToEditScreen,
                 callbackChecked = { checked -> callbackChangeStatus(taskItem, checked) },
             )
         }
@@ -45,6 +47,7 @@ fun ItemListColumnPreview() {
 
     ItemListColumn(
         tasks = tasks,
+        onNavigateToEditScreen = {},
         callbackChangeStatus = { tasks, checked -> true },
     )
 }
