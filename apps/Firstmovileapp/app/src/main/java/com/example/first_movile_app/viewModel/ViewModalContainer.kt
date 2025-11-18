@@ -14,6 +14,9 @@ object ViewModalContainer {
         initializer {
             CreateTaskViewModel(taskRepository = taskApplication().container.taskRepository)
         }
+        initializer {
+            EditTaskViewModel(taskRepository = taskApplication().container.taskRepository)
+        }
     }
 }
 
