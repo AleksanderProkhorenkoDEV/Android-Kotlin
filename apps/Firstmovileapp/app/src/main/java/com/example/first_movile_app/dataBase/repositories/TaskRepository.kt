@@ -9,5 +9,7 @@ interface TaskRepository{
 
     fun getAllTask(): Flow<List<Task>>
 
+    fun getTask(id: Long): Flow<Task?>
+
     suspend fun updateChecked(task: Task)
 }
