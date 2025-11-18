@@ -10,5 +10,4 @@ class EditTaskViewModel(
 ): ViewModel()
 {
 
-    private val _taskId = Mutabe
 }

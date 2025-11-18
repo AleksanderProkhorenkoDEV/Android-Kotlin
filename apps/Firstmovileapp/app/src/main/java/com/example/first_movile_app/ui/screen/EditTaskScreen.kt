@@ -16,6 +16,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.first_movile_app.R
 import com.example.first_movile_app.ui.components.InputLabel
 import com.example.first_movile_app.ui.components.TextFieldCustom
+import com.example.first_movile_app.viewModel.EditTaskViewModel
 import com.example.first_movile_app.viewModel.TaskViewModel
 import com.example.first_movile_app.viewModel.ViewModalContainer
 
@@ -24,9 +25,8 @@ import com.example.first_movile_app.viewModel.ViewModalContainer
 fun EditTaskScreen(
     id: Int,
     modifier: Modifier = Modifier,
-    viewModel: TaskViewModel = viewModel(factory = ViewModalContainer.Factory),
-) {
 
+) {
 
     Scaffold(
         modifier = modifier
@@ -38,7 +38,7 @@ fun EditTaskScreen(
 
             Column {
                 TextFieldCustom(
-                    value = ,
+                    value = "",
                     onValueChange = { newName -> "" },
                     placeholder = stringResource(R.string.create_form_name_placeholder),
                     inputLabel = { InputLabel(value = stringResource(R.string.create_form_name_label)) },
