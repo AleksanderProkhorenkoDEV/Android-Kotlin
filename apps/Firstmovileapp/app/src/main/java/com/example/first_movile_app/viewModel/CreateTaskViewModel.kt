@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.first_movile_app.dataBase.entities.Task
-import com.example.first_movile_app.dataBase.repositories.OffileTaskRepository
+import com.example.first_movile_app.dataBase.repositories.OfflineTaskRepository
 import com.example.first_movile_app.utils.FormError
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,7 +24,7 @@ data class CreateTaskFormState(
 )
 
 class CreateTaskViewModel(
-    private val taskRepository: OffileTaskRepository
+    private val taskRepository: OfflineTaskRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CreateTaskFormState())
