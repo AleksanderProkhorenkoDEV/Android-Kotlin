@@ -1,6 +1,7 @@
 package com.example.first_movile_app.viewModel
 
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
@@ -15,7 +16,9 @@ object ViewModalContainer {
             CreateTaskViewModel(taskRepository = taskApplication().container.taskRepository)
         }
         initializer {
-            EditTaskViewModel(taskRepository = taskApplication().container.taskRepository)
+            EditTaskViewModel(
+                savedStateHandle = this.createSavedStateHandle(),
+                taskRepository = taskApplication().container.taskRepository)
         }
     }
 }
