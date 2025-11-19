@@ -37,8 +37,8 @@ fun TaskNavHost(
         }
 
         composable<EditTask>{ backStackEntry ->
-            val params = backStackEntry.toRoute<EditTask>()
-            EditTaskScreen(id = params.id)
+            val taskId = backStackEntry.toRoute<EditTask>()
+            EditTaskScreen()
         }
     }
 }
