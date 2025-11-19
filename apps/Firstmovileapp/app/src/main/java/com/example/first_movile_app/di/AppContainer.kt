@@ -2,7 +2,7 @@ package com.example.first_movile_app.di
 
 import android.content.Context
 import com.example.first_movile_app.dataBase.TaskDataBase
-import com.example.first_movile_app.dataBase.repositories.OffileTaskRepository
+import com.example.first_movile_app.dataBase.repositories.OfflineTaskRepository
 import com.example.first_movile_app.dataBase.repositories.TaskRepository
 
 interface AppContainer {
@@ -19,6 +19,6 @@ class AppDataContainer(private val context: Context): AppContainer {
     }
 
     override val taskRepository by lazy {
-        OffileTaskRepository(taskDao = taskDao)
+        OfflineTaskRepository(taskDao = taskDao)
     }
 }
