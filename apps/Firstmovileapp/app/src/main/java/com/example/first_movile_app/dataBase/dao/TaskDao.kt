@@ -17,7 +17,7 @@ interface TaskDao{
     fun getAllTask(): Flow<List<Task>>
 
     @Query("SELECT * FROM tasks where id = :id")
-    fun getTask(id: Long): Flow<Task?>
+    fun getTask(id: Long): Flow<Task>
 
     @Update
     suspend fun updateChecked(task: Task)
