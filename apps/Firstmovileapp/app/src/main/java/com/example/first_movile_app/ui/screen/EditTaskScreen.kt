@@ -9,6 +9,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -23,10 +24,11 @@ import com.example.first_movile_app.viewModel.ViewModalContainer
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun EditTaskScreen(
-    id: Int,
     modifier: Modifier = Modifier,
-
+    viewModel: EditTaskViewModel = viewModel(factory = ViewModalContainer.Factory)
 ) {
+
+    val task by viewModel.uiState.collectAsState()
 
     Scaffold(
         modifier = modifier
@@ -38,14 +40,14 @@ fun EditTaskScreen(
 
             Column {
                 TextFieldCustom(
-                    value = "",
+                    value = task?.text ?: "",
                     onValueChange = { newName -> "" },
                     placeholder = stringResource(R.string.create_form_name_placeholder),
                     inputLabel = { InputLabel(value = stringResource(R.string.create_form_name_label)) },
                     errorList = null
                 )
                 TextFieldCustom(
-                    value = "",
+                    value = task?.description ?: "",
                     onValueChange = { newName -> "" },
                     placeholder = stringResource(R.string.create_form_name_placeholder),
                     inputLabel = { InputLabel(value = stringResource(R.string.create_form_name_label)) },
