@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,7 +29,7 @@ fun EditTaskScreen(
     viewModel: EditTaskViewModel = viewModel(factory = ViewModalContainer.Factory)
 ) {
 
-    val task by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsState()
 
     Scaffold(
         modifier = modifier
@@ -40,19 +41,29 @@ fun EditTaskScreen(
 
             Column {
                 TextFieldCustom(
-                    value = task?.text ?: "",
-                    onValueChange = { newName -> "" },
+                    value = uiState.text,
+                    onValueChange = {  },
                     placeholder = stringResource(R.string.create_form_name_placeholder),
                     inputLabel = { InputLabel(value = stringResource(R.string.create_form_name_label)) },
-                    errorList = null
+                    errorList = uiState.nameError
                 )
                 TextFieldCustom(
-                    value = task?.description ?: "",
-                    onValueChange = { newName -> "" },
+                    value = uiState.description,
+                    onValueChange = {  },
                     placeholder = stringResource(R.string.create_form_name_placeholder),
                     inputLabel = { InputLabel(value = stringResource(R.string.create_form_name_label)) },
-                    errorList = null
+                    errorList = uiState.descriptionError
                 )
+                Button(
+                    onClick = {  },
+                    enabled = uiState.isLoading
+                ) {
+                    if (uiState.isLoading) {
+                        Text(text = stringResource(R.string.loading_button))
+                    } else {
+                        Text(text = stringResource(R.string.create_task_button))
+                    }
+                }
             }
         }
     }
