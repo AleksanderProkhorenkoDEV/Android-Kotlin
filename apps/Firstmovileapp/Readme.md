@@ -19,6 +19,7 @@ A modern Android application for managing your daily tasks, developed with Kotli
 - Search and filtering options
 - Dark/Light theme
 - Task statistics
+- add redirect when create and update finish success
 
 ## 📱 Current Screens
 
@@ -28,7 +29,12 @@ A modern Android application for managing your daily tasks, developed with Kotli
 - Basic task management
 
 ### 2. Create Task Screen  
-- It does not have implementation at the moment.
+- Works fine.
+- Display a success message
+
+### 2. Edit Task Screen
+- Works fine.
+- Display a succes message
 
 ### 3. Settings Screen
 - It does not have implementation at the moment.
