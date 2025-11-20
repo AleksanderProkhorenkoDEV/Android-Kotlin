@@ -13,6 +13,9 @@ interface TaskDao{
     @Insert
     suspend fun insert(task: Task)
 
+    @Update
+    suspend fun update(task: Task)
+
     @Query("SELECT * FROM tasks")
     fun getAllTask(): Flow<List<Task>>
 
