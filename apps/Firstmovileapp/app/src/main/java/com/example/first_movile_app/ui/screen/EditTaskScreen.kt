@@ -7,10 +7,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -31,10 +35,19 @@ fun EditTaskScreen(
 
     val uiState by viewModel.uiState.collectAsState()
 
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(true) {
+        viewModel.snackbarMessage.collect { message ->
+            snackbarHostState.showSnackbar(message)
+        }
+    }
+
     Scaffold(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(16.dp),
+        snackbarHost = { SnackbarHost(snackbarHostState) },
     ) {
         Box {
             Text(stringResource(R.string.edit_task_title_form))
@@ -42,21 +55,21 @@ fun EditTaskScreen(
             Column {
                 TextFieldCustom(
                     value = uiState.text,
-                    onValueChange = {  },
+                    onValueChange = { newText -> viewModel.onChangeText(newText) },
                     placeholder = stringResource(R.string.create_form_name_placeholder),
                     inputLabel = { InputLabel(value = stringResource(R.string.create_form_name_label)) },
                     errorList = uiState.nameError
                 )
                 TextFieldCustom(
                     value = uiState.description,
-                    onValueChange = {  },
+                    onValueChange = { newDescription -> viewModel.onChangeDescription(newDescription) },
                     placeholder = stringResource(R.string.create_form_name_placeholder),
                     inputLabel = { InputLabel(value = stringResource(R.string.create_form_name_label)) },
                     errorList = uiState.descriptionError
                 )
                 Button(
-                    onClick = {  },
-                    enabled = uiState.isLoading
+                    onClick = { viewModel.updateTask() },
+                    enabled = !uiState.isLoading
                 ) {
                     if (uiState.isLoading) {
                         Text(text = stringResource(R.string.loading_button))
