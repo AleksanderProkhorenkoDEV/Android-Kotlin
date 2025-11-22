@@ -1,6 +1,7 @@
 package com.example.first_movile_app.dataBase.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
@@ -15,6 +16,9 @@ interface TaskDao{
 
     @Update
     suspend fun update(task: Task)
+
+    @Delete
+    suspend fun delete(task: Task)
 
     @Query("SELECT * FROM tasks")
     fun getAllTask(): Flow<List<Task>>
