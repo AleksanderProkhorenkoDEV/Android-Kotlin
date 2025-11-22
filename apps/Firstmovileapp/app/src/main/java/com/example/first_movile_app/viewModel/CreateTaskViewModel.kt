@@ -1,6 +1,5 @@
 package com.example.first_movile_app.viewModel
 
-
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
