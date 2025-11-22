@@ -50,6 +50,9 @@ fun MainScreen(
             callbackChangeStatus = {task, isChecked ->
                 viewModel.updateChecked(task, isChecked)
             },
+            callbackToDelete = { task ->
+                viewModel.deleteTask(task)
+            }
         )
     }
 }
