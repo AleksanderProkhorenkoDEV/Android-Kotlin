@@ -42,6 +42,7 @@ fun ItemTask(
     isChecked: Boolean,
     onNavigateToEditScreen: (id: Int) -> Unit,
     callbackChecked: (Boolean) -> Unit,
+    callbackToDelete: (task: Task) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -102,7 +103,7 @@ fun ItemTask(
                     }
                     Spacer(modifier = Modifier.padding(2.dp))
                     Button(
-                        onClick = {},
+                        onClick = { callbackToDelete(task) },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color.Red,
                         )
@@ -134,6 +135,7 @@ fun ItemTaskPreview(
         isChecked = true,
         onNavigateToEditScreen = {},
         callbackChecked = {},
+        callbackToDelete = {},
         modifier = modifier
     )
 }

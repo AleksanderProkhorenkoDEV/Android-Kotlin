@@ -14,6 +14,7 @@ fun ItemListColumn(
     tasks: List<Task>,
     onNavigateToEditScreen: (id: Int) -> Unit,
     callbackChangeStatus: (Task, Boolean) -> Unit,
+    callbackToDelete: (task: Task) -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -29,6 +30,8 @@ fun ItemListColumn(
                 isChecked = taskItem.isChecked,
                 onNavigateToEditScreen = onNavigateToEditScreen,
                 callbackChecked = { checked -> callbackChangeStatus(taskItem, checked) },
+                callbackToDelete = callbackToDelete
+                ,
             )
         }
     }
@@ -49,5 +52,6 @@ fun ItemListColumnPreview() {
         tasks = tasks,
         onNavigateToEditScreen = {},
         callbackChangeStatus = { tasks, checked -> true },
+        callbackToDelete = {},
     )
 }
