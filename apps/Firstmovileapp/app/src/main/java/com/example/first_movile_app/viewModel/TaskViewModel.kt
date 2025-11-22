@@ -24,4 +24,10 @@ class TaskViewModel(
             taskRepository.updateChecked(updateTask)
         }
     }
+
+    fun deleteTask(task: Task){
+        viewModelScope.launch{
+            taskRepository.deleteTask(task)
+        }
+    }
 }
