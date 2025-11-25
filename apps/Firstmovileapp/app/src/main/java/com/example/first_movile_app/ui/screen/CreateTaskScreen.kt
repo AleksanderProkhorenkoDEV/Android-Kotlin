@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -29,7 +30,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.first_movile_app.R
 import com.example.first_movile_app.ui.components.InputLabel
 import com.example.first_movile_app.ui.components.TextFieldCustom
+import com.example.first_movile_app.ui.components.TopBar
 import com.example.first_movile_app.viewModel.CreateTaskViewModel
+import com.example.first_movile_app.viewModel.UiEvent
 import com.example.first_movile_app.viewModel.ViewModalContainer
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -38,29 +41,42 @@ import kotlinx.coroutines.launch
 @Composable
 fun CreateTaskScreen(
     modifier: Modifier = Modifier,
+    onNavigationBack: () -> Unit,
     viewModel: CreateTaskViewModel = viewModel(factory = ViewModalContainer.Factory)
 ) {
     val uiState = viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(true) {
-        viewModel.snackbarMessage.collect{ message ->
-            snackbarHostState.showSnackbar(message)
+        viewModel.uiEvent.collect{ event ->
+            when(event){
+                UiEvent.NavigateList -> onNavigationBack()
+                is UiEvent.SnackMessage -> snackbarHostState.showSnackbar(
+                    message = event.message,
+                    duration = SnackbarDuration.Short
+                )
+            }
         }
     }
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
-    ) {
+        topBar = {
+            TopBar(
+                screenTitle = stringResource(R.string.create_task_title_form),
+                onNavigationBack = onNavigationBack
+            )
+        }
+    ) { innerPadding ->
         Box(
             modifier = modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(innerPadding)
         ) {
-            Text(text = stringResource(R.string.create_task_title_form))
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(16.dp)
             ) {
                 TextFieldCustom(
                     value = uiState.value.name,
@@ -97,5 +113,5 @@ fun CreateTaskScreen(
 @Preview
 @Composable
 fun CreateTaskScreenPreview() {
-    CreateTaskScreen()
+    CreateTaskScreen(onNavigationBack = {})
 }

@@ -3,11 +3,13 @@ package com.example.first_movile_app.viewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigationevent.NavigationEvent
 import com.example.first_movile_app.dataBase.entities.Task
 import com.example.first_movile_app.dataBase.repositories.OfflineTaskRepository
 import com.example.first_movile_app.utils.FormError
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.update
@@ -21,16 +23,19 @@ data class CreateTaskFormState(
     val nameError: Set<FormError>? = null,
     val descriptionError: Set<FormError>? = null,
 )
-
+sealed class UiEvent {
+    object NavigateList: UiEvent()
+    data class SnackMessage(val message: String): UiEvent()
+}
 class CreateTaskViewModel(
     private val taskRepository: OfflineTaskRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CreateTaskFormState())
-    private val _snackbarMessage = MutableSharedFlow<String>()
-
     val uiState: StateFlow<CreateTaskFormState> = _uiState
-    val snackbarMessage = _snackbarMessage.asSharedFlow()
+    private val _uiEvent = MutableSharedFlow<UiEvent>(replay = 0, extraBufferCapacity = 1)
+    val uiEvent: SharedFlow<UiEvent> = _uiEvent.asSharedFlow()
+
 
     fun onChangeName(newName: String) {
         _uiState.update { it ->
@@ -74,7 +79,8 @@ class CreateTaskViewModel(
                 try {
                     taskRepository.insertTask(task)
 
-                    _snackbarMessage.emit("The task was created succesfully")
+                    _uiEvent.emit(UiEvent.SnackMessage("Task created successfully"))
+                    _uiEvent.emit(UiEvent.NavigateList)
                 } catch (e: Exception) {
                     Log.d("Error", "Error al insertar en la base de datos")
                 } finally {
