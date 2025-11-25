@@ -2,6 +2,7 @@
     <string name="app_name">Taks resume</string>
     <string name="create_task_title_form">Create Taks</string>
     <string name="edit_task_title_form">Edit Task</string>
+    <string name="setting_page">Settings Page</string>
 
     <!-- Labels and placeholders of create Task -->
     <string name="create_form_name_label">Introduce the name</string>
