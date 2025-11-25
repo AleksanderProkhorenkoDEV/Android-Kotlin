@@ -45,6 +45,7 @@ android {
 
 dependencies {
 
+    implementation(libs.androidx.navigationevent)
     //versions
     val room_version = "2.8.3"
     val navigation_version = "2.9.6"
