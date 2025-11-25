@@ -30,10 +30,14 @@ fun TaskNavHost(
             })
         }
         composable<CreateTask> {
-            CreateTaskScreen()
+            CreateTaskScreen(onNavigationBack = {
+                navController.popBackStack()
+            })
         }
         composable<AccountSettings> {
-            AccountSettingsScreen()
+            AccountSettingsScreen(onNavigationBack = {
+                navController.popBackStack()
+            })
         }
 
         composable<EditTask>{ backStackEntry ->
