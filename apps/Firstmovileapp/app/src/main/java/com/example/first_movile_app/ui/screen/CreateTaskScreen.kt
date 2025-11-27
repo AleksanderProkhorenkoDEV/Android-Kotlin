@@ -8,20 +8,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,8 +30,6 @@ import com.example.first_movile_app.ui.components.TopBar
 import com.example.first_movile_app.viewModel.CreateTaskViewModel
 import com.example.first_movile_app.viewModel.UiEvent
 import com.example.first_movile_app.viewModel.ViewModalContainer
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -45,22 +39,27 @@ fun CreateTaskScreen(
     viewModel: CreateTaskViewModel = viewModel(factory = ViewModalContainer.Factory)
 ) {
     val uiState = viewModel.uiState.collectAsState()
-    val snackbarHostState = remember { SnackbarHostState() }
+    val snackbar = remember { SnackbarHostState() }
 
     LaunchedEffect(true) {
-        viewModel.uiEvent.collect{ event ->
-            when(event){
-                UiEvent.NavigateList -> onNavigationBack()
-                is UiEvent.SnackMessage -> snackbarHostState.showSnackbar(
-                    message = event.message,
-                    duration = SnackbarDuration.Short
-                )
+        viewModel.uiEvent.collect { event ->
+            //In the future if the events grown, make a handleUiEvents and clean this.
+            when (event) {
+                is UiEvent.SnackMessage -> {
+                    snackbar.showSnackbar(
+                        message = event.message,
+                        duration = SnackbarDuration.Short,
+                        actionLabel = "View task"
+                    ).let { result ->
+                        if (result == SnackbarResult.ActionPerformed) onNavigationBack()
+                    }
+                }
             }
         }
     }
 
     Scaffold(
-        snackbarHost = { SnackbarHost(snackbarHostState) },
+        snackbarHost = { SnackbarHost(snackbar) },
         topBar = {
             TopBar(
                 screenTitle = stringResource(R.string.create_task_title_form),
