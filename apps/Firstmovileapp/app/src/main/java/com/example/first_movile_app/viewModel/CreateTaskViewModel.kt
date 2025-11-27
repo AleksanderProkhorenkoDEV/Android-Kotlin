@@ -3,7 +3,6 @@ package com.example.first_movile_app.viewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigationevent.NavigationEvent
 import com.example.first_movile_app.dataBase.entities.Task
 import com.example.first_movile_app.dataBase.repositories.OfflineTaskRepository
 import com.example.first_movile_app.utils.FormError
@@ -25,7 +24,6 @@ data class CreateTaskFormState(
 )
 
 sealed class UiEvent {
-    object NavigateList : UiEvent()
     data class SnackMessage(val message: String) : UiEvent()
 }
 
@@ -84,7 +82,6 @@ class CreateTaskViewModel(
             try {
                 taskRepository.insertTask(task = createTask(states = currentState))
                 _uiEvent.emit(UiEvent.SnackMessage("Task created successfully"))
-                _uiEvent.emit(UiEvent.NavigateList)
             } catch (e: Exception) {
                 Log.d("Error", "Error al insertar en la base de datos")
             } finally {
