@@ -9,13 +9,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -25,10 +22,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.first_movile_app.R
 import com.example.first_movile_app.ui.components.InputLabel
+import com.example.first_movile_app.ui.components.ObserverUiEvents
 import com.example.first_movile_app.ui.components.TextFieldCustom
 import com.example.first_movile_app.ui.components.TopBar
 import com.example.first_movile_app.viewModel.CreateTaskViewModel
-import com.example.first_movile_app.viewModel.UiEvent
 import com.example.first_movile_app.viewModel.ViewModalContainer
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -41,22 +38,12 @@ fun CreateTaskScreen(
     val uiState = viewModel.uiState.collectAsState()
     val snackbar = remember { SnackbarHostState() }
 
-    LaunchedEffect(true) {
-        viewModel.uiEvent.collect { event ->
-            //In the future if the events grown, make a handleUiEvents and clean this.
-            when (event) {
-                is UiEvent.SnackMessage -> {
-                    snackbar.showSnackbar(
-                        message = event.message,
-                        duration = SnackbarDuration.Short,
-                        actionLabel = "View task"
-                    ).let { result ->
-                        if (result == SnackbarResult.ActionPerformed) onNavigationBack()
-                    }
-                }
-            }
-        }
-    }
+    ObserverUiEvents(
+        events = viewModel.uiEvent,
+        snackBarHostState = snackbar,
+        onNavigationBack = { onNavigationBack() },
+        onRetry = { viewModel.saveTask() }
+    )
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbar) },
@@ -108,6 +95,7 @@ fun CreateTaskScreen(
         }
     }
 }
+
 
 @Preview
 @Composable
