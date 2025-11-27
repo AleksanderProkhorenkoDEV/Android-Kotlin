@@ -23,10 +23,12 @@ data class CreateTaskFormState(
     val nameError: Set<FormError>? = null,
     val descriptionError: Set<FormError>? = null,
 )
+
 sealed class UiEvent {
-    object NavigateList: UiEvent()
-    data class SnackMessage(val message: String): UiEvent()
+    object NavigateList : UiEvent()
+    data class SnackMessage(val message: String) : UiEvent()
 }
+
 class CreateTaskViewModel(
     private val taskRepository: OfflineTaskRepository
 ) : ViewModel() {
@@ -58,38 +60,39 @@ class CreateTaskViewModel(
     fun saveTask() {
 
         val currentState = _uiState.value
+        //Validation the final state of the inputs
         val checkedState = currentState.copy(
             nameError = validateInputs(currentState.name),
             descriptionError = validateInputs(currentState.description)
         )
 
-        if (checkedState.descriptionError.isNullOrEmpty() && checkedState.nameError.isNullOrEmpty()) {
+        //Check if the inputs is well formed.
+        if (!checkedState.descriptionError.isNullOrEmpty() && !checkedState.nameError.isNullOrEmpty()) {
             _uiState.update { it ->
                 it.copy(
-                    isLoading = true
+                    nameError = checkedState.nameError,
+                    descriptionError = checkedState.descriptionError,
+                    isLoading = false
                 )
             }
-            val task = Task(
-                text = checkedState.name,
-                description = checkedState.description,
-                isChecked = false
-            )
+            return
+        }
 
-            viewModelScope.launch {
-                try {
-                    taskRepository.insertTask(task)
+        _uiState.update { it.copy(isLoading = true) }
 
-                    _uiEvent.emit(UiEvent.SnackMessage("Task created successfully"))
-                    _uiEvent.emit(UiEvent.NavigateList)
-                } catch (e: Exception) {
-                    Log.d("Error", "Error al insertar en la base de datos")
-                } finally {
-                    Log.d("INFO", "pasa por el finllay")
-                    _uiState.update { it ->
-                        it.copy(isLoading = false)
-                    }
-                    _uiState.update { CreateTaskFormState() }
+        viewModelScope.launch {
+            try {
+                taskRepository.insertTask(task = createTask(states = currentState))
+                _uiEvent.emit(UiEvent.SnackMessage("Task created successfully"))
+                _uiEvent.emit(UiEvent.NavigateList)
+            } catch (e: Exception) {
+                Log.d("Error", "Error al insertar en la base de datos")
+            } finally {
+                Log.d("INFO", "pasa por el finllay")
+                _uiState.update { it ->
+                    it.copy(isLoading = false)
                 }
+                _uiState.update { CreateTaskFormState() }
             }
         }
     }
@@ -106,4 +109,12 @@ private fun validateInputs(value: String): Set<FormError> {
     }
 
     return errors
+}
+//Create task objects
+private fun createTask(states: CreateTaskFormState): Task {
+    return Task(
+        text = states.name,
+        description = states.description,
+        isChecked = false
+    )
 }
