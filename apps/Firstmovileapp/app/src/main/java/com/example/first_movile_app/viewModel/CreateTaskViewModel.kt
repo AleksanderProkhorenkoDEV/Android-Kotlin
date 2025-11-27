@@ -22,9 +22,18 @@ data class CreateTaskFormState(
     val nameError: Set<FormError>? = null,
     val descriptionError: Set<FormError>? = null,
 )
-
+enum class SnackAction{
+    None,
+    NavigateBack,
+    Retry
+}
 sealed class UiEvent {
-    data class SnackMessage(val message: String) : UiEvent()
+    data class SnackMessage(
+        val message: String,
+        val actionLabel: String? = null,
+        val onAction: SnackAction = SnackAction.None
+    ) : UiEvent()
+
 }
 
 class CreateTaskViewModel(
@@ -81,15 +90,26 @@ class CreateTaskViewModel(
         viewModelScope.launch {
             try {
                 taskRepository.insertTask(task = createTask(states = currentState))
-                _uiEvent.emit(UiEvent.SnackMessage("Task created successfully"))
+                _uiEvent.emit(
+                    value = UiEvent.SnackMessage(
+                        message = "Task created successfully",
+                        actionLabel = "View Task",
+                        onAction = SnackAction.NavigateBack
+                    )
+                )
+                _uiState.update { CreateTaskFormState() }
             } catch (e: Exception) {
-                Log.d("Error", "Error al insertar en la base de datos")
+                _uiEvent.emit(
+                    value = UiEvent.SnackMessage(
+                        message = "An unexpected error has occurred.",
+                        actionLabel = "Retry",
+                        onAction = SnackAction.Retry
+                    )
+                )
             } finally {
-                Log.d("INFO", "pasa por el finllay")
                 _uiState.update { it ->
                     it.copy(isLoading = false)
                 }
-                _uiState.update { CreateTaskFormState() }
             }
         }
     }
@@ -107,6 +127,7 @@ private fun validateInputs(value: String): Set<FormError> {
 
     return errors
 }
+
 //Create task objects
 private fun createTask(states: CreateTaskFormState): Task {
     return Task(
