@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.first_movile_app.R
 import com.example.first_movile_app.ui.components.InputLabel
+import com.example.first_movile_app.ui.components.ObserverUiEvents
 import com.example.first_movile_app.ui.components.TextFieldCustom
 import com.example.first_movile_app.viewModel.EditTaskViewModel
 import com.example.first_movile_app.viewModel.TaskViewModel
@@ -34,20 +35,20 @@ fun EditTaskScreen(
 ) {
 
     val uiState by viewModel.uiState.collectAsState()
+    val snackbar = remember { SnackbarHostState() }
 
-    val snackbarHostState = remember { SnackbarHostState() }
-
-    LaunchedEffect(true) {
-        viewModel.snackbarMessage.collect { message ->
-            snackbarHostState.showSnackbar(message)
-        }
-    }
+    ObserverUiEvents(
+        events = viewModel.uiEvent,
+        snackBarHostState = snackbar,
+        onNavigationBack = {},
+        onRetry = { viewModel.updateTask() }
+    )
 
     Scaffold(
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp),
-        snackbarHost = { SnackbarHost(snackbarHostState) },
+        snackbarHost = { SnackbarHost(snackbar) },
     ) {
         Box {
             Text(stringResource(R.string.edit_task_title_form))
