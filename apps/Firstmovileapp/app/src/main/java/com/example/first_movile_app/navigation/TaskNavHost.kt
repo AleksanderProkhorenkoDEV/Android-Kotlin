@@ -25,14 +25,18 @@ fun TaskNavHost(
         modifier = modifier,
     ) {
         composable<TaskList> {
-            MainScreen( onNavigateToEditScreen = { id ->
+            MainScreen(onNavigateToEditScreen = { id ->
                 navController.navigate(EditTask(id = id))
             })
         }
         composable<CreateTask> {
-            CreateTaskScreen(onNavigationBack = {
-                navController.popBackStack()
-            })
+            CreateTaskScreen(
+                onNavigationBack = {
+                    navController.popBackStack()
+                },
+                onNavigationList = {
+                    navController.navigate(TaskList)
+                })
         }
         composable<AccountSettings> {
             AccountSettingsScreen(onNavigationBack = {
@@ -40,9 +44,14 @@ fun TaskNavHost(
             })
         }
 
-        composable<EditTask>{ backStackEntry ->
-            val taskId = backStackEntry.toRoute<EditTask>()
-            EditTaskScreen()
+        composable<EditTask> { backStackEntry ->
+            EditTaskScreen(
+                onNavigationBack = {
+                    navController.popBackStack()
+                },
+                onNavigationList = {
+                    navController.navigate(TaskList)
+                })
         }
     }
 }
