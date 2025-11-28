@@ -11,6 +11,7 @@ import com.example.first_movile_app.navigation.EditTask
 import com.example.first_movile_app.utils.FormError
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -35,11 +36,12 @@ class EditTaskViewModel(
     private val taskRepository: TaskRepository,
 ) : ViewModel() {
     private val _params = savedStateHandle.toRoute<EditTask>()
-    private val _snackbarMessage = MutableSharedFlow<String>()
-    val snackbarMessage = _snackbarMessage.asSharedFlow()
 
     private val _uiState = MutableStateFlow(EditTaskFormState())
     val uiState: StateFlow<EditTaskFormState> = _uiState.asStateFlow()
+
+    private val _uiEvent = MutableSharedFlow<UiEvent>(replay = 0, extraBufferCapacity = 1)
+    val uiEvent: SharedFlow<UiEvent> = _uiEvent.asSharedFlow()
 
     init {
         viewModelScope.launch {
@@ -82,43 +84,45 @@ class EditTaskViewModel(
 
         if (!checkState.descriptionError.isNullOrEmpty() || !checkState.nameError.isNullOrEmpty()) {
             _uiState.update {
-                it.copy(nameError = checkState.nameError, descriptionError = checkState.descriptionError)
+                it.copy(
+                    nameError = checkState.nameError,
+                    descriptionError = checkState.descriptionError
+                )
             }
             return
         }
 
 
-        _uiState.update { it ->
-            it.copy(
-                isLoading = true
-            )
-        }
-
-        val task = Task(
-            id = checkState.id.toLong(),
-            text = checkState.text,
-            description = checkState.description,
-            isChecked = checkState.isChecked
-        )
+        _uiState.update { it.copy(isLoading = true) }
 
         viewModelScope.launch {
             try {
-                taskRepository.updateTask(task)
-                _snackbarMessage.emit("The task was updated succesfully")
+                taskRepository.updateTask(task = createTask(states = currentState))
+                _uiEvent.emit(
+                    value = UiEvent.SnackMessage(
+                        message = "Task update successfully",
+                        actionLabel = "View Task",
+                        onAction = SnackAction.NavigateBack
+                    )
+                )
             } catch (e: Exception) {
                 Log.d("Error", "Error al updatear la tarea")
-                _snackbarMessage.emit("Error was proceed meanwhile trying to update the task")
             } finally {
                 Log.d("INFO", "pasa por el finllay")
-                _uiState.update { it ->
-                    it.copy(isLoading = false)
-                }
+                _uiState.update { it.copy(isLoading = false) }
+                _uiEvent.emit(
+                    value = UiEvent.SnackMessage(
+                        message = "An unexpected error has occurred.",
+                        actionLabel = "Retry",
+                        onAction = SnackAction.Retry
+                    )
+                )
                 _uiState.update {
                     EditTaskFormState(
-                        id = task.id.toInt(),
-                        text = task.text,
-                        description = task.description,
-                        isChecked = task.isChecked
+                        id = currentState.id,
+                        text = currentState.text,
+                        description = currentState.description,
+                        isChecked = currentState.isChecked
                     )
                 }
             }
@@ -138,4 +142,12 @@ private fun validateInputs(value: String): Set<FormError> {
     }
 
     return errors
+}
+
+private fun createTask(states: EditTaskFormState): Task {
+    return Task(
+        text = states.text,
+        description = states.description,
+        isChecked = false
+    )
 }
