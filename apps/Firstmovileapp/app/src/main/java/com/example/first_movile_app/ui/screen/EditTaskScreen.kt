@@ -23,6 +23,7 @@ import com.example.first_movile_app.R
 import com.example.first_movile_app.ui.components.InputLabel
 import com.example.first_movile_app.ui.components.ObserverUiEvents
 import com.example.first_movile_app.ui.components.TextFieldCustom
+import com.example.first_movile_app.ui.components.TopBar
 import com.example.first_movile_app.viewModel.EditTaskViewModel
 import com.example.first_movile_app.viewModel.TaskViewModel
 import com.example.first_movile_app.viewModel.ViewModalContainer
@@ -31,6 +32,8 @@ import com.example.first_movile_app.viewModel.ViewModalContainer
 @Composable
 fun EditTaskScreen(
     modifier: Modifier = Modifier,
+    onNavigationBack: () -> Unit,
+    onNavigationList: () -> Unit,
     viewModel: EditTaskViewModel = viewModel(factory = ViewModalContainer.Factory)
 ) {
 
@@ -40,7 +43,7 @@ fun EditTaskScreen(
     ObserverUiEvents(
         events = viewModel.uiEvent,
         snackBarHostState = snackbar,
-        onNavigationBack = {},
+        onNavigationBack = { onNavigationList() },
         onRetry = { viewModel.updateTask() }
     )
 
@@ -49,9 +52,14 @@ fun EditTaskScreen(
             .fillMaxSize()
             .padding(16.dp),
         snackbarHost = { SnackbarHost(snackbar) },
+        topBar = {
+            TopBar(
+                screenTitle = stringResource(R.string.edit_task_title_form),
+                onNavigationBack = onNavigationBack
+            )
+        }
     ) {
         Box {
-            Text(stringResource(R.string.edit_task_title_form))
 
             Column {
                 TextFieldCustom(

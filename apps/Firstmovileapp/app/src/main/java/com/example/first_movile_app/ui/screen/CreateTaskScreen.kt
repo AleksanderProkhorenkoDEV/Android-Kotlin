@@ -33,6 +33,7 @@ import com.example.first_movile_app.viewModel.ViewModalContainer
 fun CreateTaskScreen(
     modifier: Modifier = Modifier,
     onNavigationBack: () -> Unit,
+    onNavigationList: () -> Unit,
     viewModel: CreateTaskViewModel = viewModel(factory = ViewModalContainer.Factory)
 ) {
     val uiState = viewModel.uiState.collectAsState()
@@ -41,7 +42,7 @@ fun CreateTaskScreen(
     ObserverUiEvents(
         events = viewModel.uiEvent,
         snackBarHostState = snackbar,
-        onNavigationBack = { onNavigationBack() },
+        onNavigationBack = { onNavigationList() },
         onRetry = { viewModel.saveTask() }
     )
 
@@ -100,5 +101,5 @@ fun CreateTaskScreen(
 @Preview
 @Composable
 fun CreateTaskScreenPreview() {
-    CreateTaskScreen(onNavigationBack = {})
+    CreateTaskScreen(onNavigationBack = {}, onNavigationList = {})
 }
