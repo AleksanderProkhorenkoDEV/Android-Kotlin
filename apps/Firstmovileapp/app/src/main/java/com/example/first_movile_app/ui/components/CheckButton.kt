@@ -1,8 +1,11 @@
 package com.example.first_movile_app.ui.components
 
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.first_movile_app.R
 
 @Composable
 fun CheckButton(
@@ -11,15 +14,19 @@ fun CheckButton(
 ){
     Checkbox(
         checked = isChecked,
-        onCheckedChange = callbackChecked
+        onCheckedChange = callbackChecked,
+        colors = CheckboxDefaults.colors(
+            checkedColor = colorResource(R.color.dark_outline),
+            uncheckedColor = colorResource(R.color.dark_tertiary),
+        )
     )
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = false)
 @Composable
 fun CheckButtonPreview(){
     CheckButton(
-        isChecked =  false,
+        isChecked =  true,
         callbackChecked = { },
     )
 }
