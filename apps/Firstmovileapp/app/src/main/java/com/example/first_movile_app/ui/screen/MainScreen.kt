@@ -42,12 +42,12 @@ fun MainScreen(
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .padding(vertical = 6.dp)
-                .fillMaxWidth()
-            )
+                .fillMaxWidth(),
+        )
         ItemListColumn(
             tasks = tasks,
             onNavigateToEditScreen = onNavigateToEditScreen,
-            callbackChangeStatus = {task, isChecked ->
+            callbackChangeStatus = { task, isChecked ->
                 viewModel.updateChecked(task, isChecked)
             },
             callbackToDelete = { task ->
@@ -55,6 +55,7 @@ fun MainScreen(
             }
         )
     }
+
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -63,5 +64,5 @@ fun MainScreen(
 fun MainLayoutPreview(
     modifier: Modifier = Modifier
 ) {
-    MainScreen({},modifier)
+    MainScreen({}, modifier)
 }
