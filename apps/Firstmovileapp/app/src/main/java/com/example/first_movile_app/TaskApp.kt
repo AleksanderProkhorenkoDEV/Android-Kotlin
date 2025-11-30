@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.navigation.compose.rememberNavController
 import com.example.first_movile_app.ui.theme.FirstmovileappTheme
 import com.example.first_movile_app.navigation.TaskNavHost
@@ -31,7 +32,9 @@ fun TaskApp() {
                         }
                     }
                 )
-            }
+            },
+            containerColor = colorResource(R.color.dark_primary),
+            contentColor = colorResource(R.color.text_primary)
         ) { innerPadding ->
             TaskNavHost(
                 navController = navController,
