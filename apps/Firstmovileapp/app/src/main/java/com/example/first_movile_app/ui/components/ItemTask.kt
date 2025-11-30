@@ -30,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -53,13 +54,8 @@ fun ItemTask(
             .padding(8.dp)
             .fillMaxWidth(1f)
             .animateContentSize()
-            .shadow(
-                elevation = 4.dp,
-                shape = RoundedCornerShape(8.dp),
-                clip = true
-            )
             .background(
-                color = MaterialTheme.colorScheme.surface,
+                color = colorResource(R.color.dark_secondary),
                 shape = RoundedCornerShape(8.dp)
             ),
         horizontalAlignment = Alignment.Start,
@@ -80,32 +76,46 @@ fun ItemTask(
                 ExpandButton(isExpanded, callbackExpanded = { isExpanded = !isExpanded })
             }
         }
-        if(isExpanded){
+        if (isExpanded) {
             Column(
                 modifier = Modifier
-                            .padding(8.dp),
+                    .padding(8.dp),
             ) {
-                HorizontalDivider(thickness = 2.dp)
+                HorizontalDivider(
+                    thickness = 2.dp,
+                    color = colorResource(R.color.dark_outline)
+                )
                 Spacer(modifier = Modifier.padding(vertical = 4.dp))
-                Text(task.description)
+                Text(
+                    text = task.description,
+                )
                 Spacer(modifier = Modifier.padding(vertical = 4.dp))
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Button(onClick = { onNavigateToEditScreen(task.id.toInt()) }) {
+                    Button(
+                        onClick = { onNavigateToEditScreen(task.id.toInt()) },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = colorResource(R.color.dark_surface),
+                            contentColor = colorResource(R.color.text_primary)
+                        )
+                    ) {
                         Icon(
                             imageVector = Icons.Default.Edit,
                             contentDescription = stringResource(R.string.edit_task),
                             modifier = Modifier.size(16.dp)
                         )
                         Spacer(modifier = Modifier.padding(horizontal = 2.dp))
-                        Text(text = stringResource(R.string.edit_task))
+                        Text(
+                            text = stringResource(R.string.edit_task),
+                        )
                     }
                     Spacer(modifier = Modifier.padding(2.dp))
                     Button(
                         onClick = { callbackToDelete(task) },
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.Red,
+                            containerColor = colorResource(R.color.dark_tertiary),
+                            contentColor = colorResource(R.color.text_primary)
                         )
                     ) {
                         Icon(
@@ -129,7 +139,7 @@ fun ItemTask(
 fun ItemTaskPreview(
     modifier: Modifier = Modifier
 ) {
-    val task = Task(5, "Exam", "Exam of Android, you will make a Task app",  true)
+    val task = Task(5, "Exam", "Exam of Android, you will make a Task app", true)
     ItemTask(
         task = task,
         isChecked = true,
