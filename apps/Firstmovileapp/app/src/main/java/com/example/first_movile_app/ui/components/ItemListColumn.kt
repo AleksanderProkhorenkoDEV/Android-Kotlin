@@ -30,8 +30,7 @@ fun ItemListColumn(
                 isChecked = taskItem.isChecked,
                 onNavigateToEditScreen = onNavigateToEditScreen,
                 callbackChecked = { checked -> callbackChangeStatus(taskItem, checked) },
-                callbackToDelete = callbackToDelete
-                ,
+                callbackToDelete = callbackToDelete,
             )
         }
     }
