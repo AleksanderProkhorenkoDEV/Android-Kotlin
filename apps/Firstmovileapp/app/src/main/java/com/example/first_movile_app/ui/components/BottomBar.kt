@@ -15,6 +15,7 @@ import androidx.compose.material3.ShapeDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,14 +41,10 @@ fun BottomBar(
         modifier = modifier
             .fillMaxWidth()
             .height(68.dp)
+            .shadow(elevation = 10.dp, shape = shape)
             .background(
                 color = colorResource(R.color.surface),
                 shape = shape,
-            )
-            .border(
-                width = 1.dp,
-                color = colorResource(R.color.outline),
-                shape = shape
             ),
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
