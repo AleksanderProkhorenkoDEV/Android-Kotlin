@@ -28,5 +28,5 @@ data class TaskDestination(
 val taskDestinationBottomBar = listOf(
     TaskDestination(TaskList, "Task list", Icons.Default.Home),
     TaskDestination(CreateTask, "Create task", Icons.Default.AddCircle),
-    TaskDestination(AccountSettings, "Settings", Icons.Default.Edit)
+    TaskDestination(AccountSettings, "Settings", Icons.Default.Settings)
 )
