@@ -33,12 +33,12 @@ fun TopBar(
             .fillMaxWidth()
             .height(24.dp)
             .background(
-                color = colorResource(R.color.dark_primary),
+                color = colorResource(R.color.surface),
                 shape = RoundedCornerShape(
                     topStart = 0.dp,
                     topEnd = 0.dp,
-                    bottomStart = 16.dp,
-                    bottomEnd = 16.dp
+                    bottomStart = 20.dp,
+                    bottomEnd = 20.dp
                 )
             ),
         verticalAlignment = Alignment.CenterVertically

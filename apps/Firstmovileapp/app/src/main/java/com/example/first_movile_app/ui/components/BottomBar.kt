@@ -28,17 +28,27 @@ fun BottomBar(
     onBottomSelected: (TaskDestination) -> Unit,
     modifier: Modifier = Modifier
 ) {
+
+    val shape = RoundedCornerShape(
+        topStart = 20.dp,
+        topEnd = 20.dp,
+        bottomStart = 0.dp,
+        bottomEnd = 0.dp
+    )
+
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(48.dp)
+            .height(68.dp)
             .background(
-                color = colorResource(R.color.dark_secondary),
-                shape = RoundedCornerShape(
-                topStart = 16.dp,
-                topEnd = 16.dp,
-                bottomStart = 0.dp,
-                bottomEnd = 0.dp)),
+                color = colorResource(R.color.surface),
+                shape = shape,
+            )
+            .border(
+                width = 1.dp,
+                color = colorResource(R.color.outline),
+                shape = shape
+            ),
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ) {
