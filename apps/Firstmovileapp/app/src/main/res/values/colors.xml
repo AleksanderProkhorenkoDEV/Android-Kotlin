@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- Backgrounds -->
-    <color name="dark_primary">#FF1E1E2F</color>
-    <color name="dark_secondary">#FF2D2D3E</color>
-    <color name="dark_tertiary">#FF4F4F5F</color>
-    <color name="dark_surface">#FF6F6F80</color>
-    <color name="dark_outline">#FF8E8E9F</color>
+    <color name="primary">#FFF3F4F6</color>
+    <color name="secondary">#FFFFFFFF</color>
+    <color name="tertiary">#FFE5E7EB</color>
+    <color name="surface">#FFFFFFFF</color>
+    <color name="outline">#FFD1D5DB</color>
+
+    <!-- Accents / States -->
+    <color name="accent_primary">#FF2563EB</color>
+    <color name="accent_success">#FF16A34A</color>
+    <color name="accent_warning">#FFF59E0B</color>
+    <color name="accent_error">#FFDC2626</color>
 
     <!-- Text -->
-    <color name="text_primary">#FFFFFFFF</color>
-    <color name="text_secondary">#FF8E8E9F</color>
-    <color name="text_tertiary">#FF6F6F80</color>
-    <color name="text_disabled">#FF4F4F5F</color>
+    <color name="text_primary">#FF111827</color>
+    <color name="text_secondary">#FF4B5563</color>
+    <color name="text_tertiary">#FF6B7280</color>
+    <color name="text_disabled">#FF9CA3AF</color>
 </resources>
