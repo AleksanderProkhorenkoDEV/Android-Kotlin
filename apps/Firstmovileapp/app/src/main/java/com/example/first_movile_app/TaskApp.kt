@@ -33,7 +33,7 @@ fun TaskApp() {
                     }
                 )
             },
-            containerColor = colorResource(R.color.dark_primary),
+            containerColor = colorResource(R.color.primary),
             contentColor = colorResource(R.color.text_primary)
         ) { innerPadding ->
             TaskNavHost(

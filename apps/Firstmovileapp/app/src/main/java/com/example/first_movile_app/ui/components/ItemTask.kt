@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,7 +20,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -28,11 +28,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.draw.dropShadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.shadow.Shadow
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.example.first_movile_app.R
 import com.example.first_movile_app.dataBase.entities.Task
@@ -55,7 +57,12 @@ fun ItemTask(
             .fillMaxWidth(1f)
             .animateContentSize()
             .background(
-                color = colorResource(R.color.dark_secondary),
+                color = colorResource(R.color.secondary),
+                shape = RoundedCornerShape(8.dp)
+            )
+            .border(
+                width = 1.dp,
+                color = colorResource(R.color.outline),
                 shape = RoundedCornerShape(8.dp)
             ),
         horizontalAlignment = Alignment.Start,
@@ -83,7 +90,7 @@ fun ItemTask(
             ) {
                 HorizontalDivider(
                     thickness = 2.dp,
-                    color = colorResource(R.color.dark_outline)
+                    color = colorResource(R.color.outline)
                 )
                 Spacer(modifier = Modifier.padding(vertical = 4.dp))
                 Text(
@@ -96,8 +103,8 @@ fun ItemTask(
                     Button(
                         onClick = { onNavigateToEditScreen(task.id.toInt()) },
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = colorResource(R.color.dark_surface),
-                            contentColor = colorResource(R.color.text_primary)
+                            containerColor = colorResource(R.color.tertiary),
+                            contentColor = colorResource(R.color.text_secondary)
                         )
                     ) {
                         Icon(
@@ -114,7 +121,7 @@ fun ItemTask(
                     Button(
                         onClick = { callbackToDelete(task) },
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = colorResource(R.color.dark_tertiary),
+                            containerColor = colorResource(R.color.accent_error),
                             contentColor = colorResource(R.color.text_primary)
                         )
                     ) {

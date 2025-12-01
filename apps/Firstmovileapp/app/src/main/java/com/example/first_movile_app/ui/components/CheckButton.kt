@@ -16,8 +16,8 @@ fun CheckButton(
         checked = isChecked,
         onCheckedChange = callbackChecked,
         colors = CheckboxDefaults.colors(
-            checkedColor = colorResource(R.color.dark_outline),
-            uncheckedColor = colorResource(R.color.dark_tertiary),
+            checkedColor = colorResource(R.color.accent_success),
+            uncheckedColor = colorResource(R.color.text_secondary),
         )
     )
 }
