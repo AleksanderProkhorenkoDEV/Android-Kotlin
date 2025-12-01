@@ -29,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.dropShadow
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.shadow.Shadow
 import androidx.compose.ui.res.colorResource
@@ -58,11 +59,6 @@ fun ItemTask(
             .animateContentSize()
             .background(
                 color = colorResource(R.color.secondary),
-                shape = RoundedCornerShape(8.dp)
-            )
-            .border(
-                width = 1.dp,
-                color = colorResource(R.color.outline),
                 shape = RoundedCornerShape(8.dp)
             ),
         horizontalAlignment = Alignment.Start,
