@@ -76,7 +76,7 @@ fun CreateTaskScreen(
                     inputLabel = { InputLabel(value = stringResource(R.string.create_form_name_label)) },
                     errorList = uiState.value.nameError
                 )
-                Spacer(modifier = Modifier.padding(16.dp))
+                Spacer(modifier = Modifier.padding(12.dp))
                 TextFieldCustom(
                     value = uiState.value.description,
                     onValueChange = { newDescription -> viewModel.onChangeDescription(newDescription) },
@@ -84,7 +84,7 @@ fun CreateTaskScreen(
                     inputLabel = { InputLabel(value = stringResource(R.string.create_form_description_label)) },
                     errorList = uiState.value.descriptionError
                 )
-                Spacer(modifier = Modifier.padding(16.dp))
+                Spacer(modifier = Modifier.padding(12.dp))
                 Button(
                     onClick = { viewModel.saveTask() },
                     enabled = !uiState.value.isLoading,
