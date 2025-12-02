@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -86,7 +87,11 @@ fun CreateTaskScreen(
                 Spacer(modifier = Modifier.padding(16.dp))
                 Button(
                     onClick = { viewModel.saveTask() },
-                    enabled = !uiState.value.isLoading
+                    enabled = !uiState.value.isLoading,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = colorResource(R.color.accent_primary),
+                        contentColor = colorResource(R.color.primary)
+                    )
                 ) {
                     if (uiState.value.isLoading) {
                         Text(text = stringResource(R.string.loading_button))
