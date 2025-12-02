@@ -19,7 +19,7 @@
     <!-- Button messages -->
     <string name="create_task_button">Save Task</string>
     <string name="loading_button">Loading…</string>
-    <string name="edit_task">Edit</string>
+    <string name="edit_task">Update task</string>
     <string name="delete_task">Delete</string>
 
 
