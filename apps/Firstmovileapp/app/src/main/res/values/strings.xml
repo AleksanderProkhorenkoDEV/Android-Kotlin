@@ -13,8 +13,8 @@
     <!-- Labels and placeholders of create Task -->
 
     <!-- Error messages -->
-    <string name="empty_field">The field is required</string>
-    <string name="too_long">The field is to long, max 254 characters.</string>
+    <string name="empty_field">* The field is required</string>
+    <string name="too_long">* The field is to long, max 254 characters.</string>
 
     <!-- Button messages -->
     <string name="create_task_button">Save Task</string>
