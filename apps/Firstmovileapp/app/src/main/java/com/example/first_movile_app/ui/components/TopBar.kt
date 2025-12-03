@@ -1,15 +1,12 @@
 package com.example.first_movile_app.ui.components
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -42,7 +39,6 @@ fun TopBar(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(48.dp)
             .shadow(elevation = 10.dp, shape = shape)
             .background(
                 color = colorResource(R.color.surface),
