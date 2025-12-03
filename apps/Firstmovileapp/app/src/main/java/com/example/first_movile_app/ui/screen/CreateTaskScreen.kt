@@ -56,8 +56,7 @@ fun CreateTaskScreen(
                 onNavigationBack = onNavigationBack,
             )
         },
-        containerColor = colorResource(R.color.primary),
-        contentColor = colorResource(R.color.text_primary)
+
     ) { innerPadding ->
         Box(
             modifier = modifier
