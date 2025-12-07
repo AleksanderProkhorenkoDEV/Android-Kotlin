@@ -8,17 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.example.first_movile_app.R
-import com.example.first_movile_app.ui.components.TopBar
 
 @Composable
 fun AccountSettingsScreen (onNavigationBack: () -> Unit) {
     Scaffold(
-        topBar = {
-            TopBar(
-                screenTitle = stringResource(R.string.setting_page),
-                onNavigationBack = onNavigationBack
-            )
-        }
+
     ) { innerPadding ->
         Column(
             modifier = Modifier.padding(innerPadding)

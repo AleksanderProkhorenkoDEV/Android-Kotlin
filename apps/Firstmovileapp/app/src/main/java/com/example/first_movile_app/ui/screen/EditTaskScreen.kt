@@ -27,7 +27,6 @@ import com.example.first_movile_app.R
 import com.example.first_movile_app.ui.components.InputLabel
 import com.example.first_movile_app.ui.components.ObserverUiEvents
 import com.example.first_movile_app.ui.components.TextFieldCustom
-import com.example.first_movile_app.ui.components.TopBar
 import com.example.first_movile_app.viewModel.EditTaskViewModel
 import com.example.first_movile_app.viewModel.TaskViewModel
 import com.example.first_movile_app.viewModel.ViewModalContainer
@@ -53,12 +52,6 @@ fun EditTaskScreen(
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbar) },
-        topBar = {
-            TopBar(
-                screenTitle = stringResource(R.string.edit_task_title_form),
-                onNavigationBack = onNavigationBack
-            )
-        }
     ) { innerPadding ->
         Box(
             modifier = Modifier

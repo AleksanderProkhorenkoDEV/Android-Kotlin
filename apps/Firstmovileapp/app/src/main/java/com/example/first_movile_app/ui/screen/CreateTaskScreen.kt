@@ -26,7 +26,6 @@ import com.example.first_movile_app.R
 import com.example.first_movile_app.ui.components.InputLabel
 import com.example.first_movile_app.ui.components.ObserverUiEvents
 import com.example.first_movile_app.ui.components.TextFieldCustom
-import com.example.first_movile_app.ui.components.TopBar
 import com.example.first_movile_app.viewModel.CreateTaskViewModel
 import com.example.first_movile_app.viewModel.ViewModalContainer
 
@@ -50,13 +49,6 @@ fun CreateTaskScreen(
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbar) },
-        topBar = {
-            TopBar(
-                screenTitle = stringResource(R.string.create_task_title_form),
-                onNavigationBack = onNavigationBack,
-            )
-        },
-
     ) { innerPadding ->
         Box(
             modifier = modifier
