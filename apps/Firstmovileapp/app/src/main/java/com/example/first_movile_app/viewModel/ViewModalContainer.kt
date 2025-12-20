@@ -9,16 +9,19 @@ import com.example.first_movile_app.TaskApplication
 
 object ViewModalContainer {
     val Factory = viewModelFactory {
-        initializer {
+        initializer<TaskViewModel> {
             TaskViewModel(taskRepository = taskApplication().container.taskRepository)
         }
-        initializer {
+        initializer<CreateTaskViewModel> {
             CreateTaskViewModel(taskRepository = taskApplication().container.taskRepository)
         }
-        initializer {
+        initializer<EditTaskViewModel> {
             EditTaskViewModel(
                 savedStateHandle = this.createSavedStateHandle(),
                 taskRepository = taskApplication().container.taskRepository)
+        }
+        initializer<TopAppBarViewModel> {
+            TopAppBarViewModel()
         }
     }
 }
