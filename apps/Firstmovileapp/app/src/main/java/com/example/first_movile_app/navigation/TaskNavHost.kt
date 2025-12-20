@@ -23,7 +23,6 @@ import com.example.first_movile_app.R
 fun TaskNavHost(
     navController: NavHostController,
     modifier: Modifier,
-    viewModel: TopAppBarViewModel = viewModel(factory = ViewModalContainer.Factory)
 ) {
     NavHost(
         navController = navController,
@@ -31,13 +30,11 @@ fun TaskNavHost(
         modifier = modifier,
     ) {
         composable<TaskList> {
-            viewModel.setTitle(stringResource(R.string.app_name))
             MainScreen(onNavigateToEditScreen = { id ->
                 navController.navigate(EditTask(id = id))
             })
         }
         composable<CreateTask> {
-            viewModel.setTitle(stringResource(R.string.create_task_title_form))
             CreateTaskScreen(
                 onNavigationBack = {
                     navController.popBackStack()
@@ -47,14 +44,12 @@ fun TaskNavHost(
                 })
         }
         composable<AccountSettings> {
-            viewModel.setTitle(stringResource(R.string.setting_page))
             AccountSettingsScreen(onNavigationBack = {
                 navController.popBackStack()
             })
         }
 
         composable<EditTask> { backStackEntry ->
-            viewModel.setTitle(stringResource(R.string.edit_task))
             EditTaskScreen(
                 onNavigationBack = {
                     navController.popBackStack()

@@ -20,9 +20,6 @@ object ViewModalContainer {
                 savedStateHandle = this.createSavedStateHandle(),
                 taskRepository = taskApplication().container.taskRepository)
         }
-        initializer<TopAppBarViewModel> {
-            TopAppBarViewModel()
-        }
     }
 }
 
