@@ -11,9 +11,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.first_movile_app.navigation.AccountSettings
@@ -24,29 +26,24 @@ import com.example.first_movile_app.ui.theme.FirstmovileappTheme
 import com.example.first_movile_app.navigation.TaskNavHost
 import com.example.first_movile_app.navigation.taskDestinationBottomBar
 import com.example.first_movile_app.ui.components.BottomBar
+import com.example.first_movile_app.ui.components.TopBar
+import com.example.first_movile_app.viewModel.TopAppBarViewModel
+import com.example.first_movile_app.viewModel.ViewModalContainer
 
 @OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun TaskApp() {
+fun TaskApp(
+    viewModel: TopAppBarViewModel = viewModel(factory = ViewModalContainer.Factory)
+) {
     FirstmovileappTheme {
         val navController = rememberNavController()
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentRoute = navBackStackEntry?.destination?.route
-        val title = getTitleFromRoute(currentRoute)
-
-        Log.d("INFO", "Current route: $currentRoute")
-        Log.d("INFO", "title route: $title")
-
+        val title by viewModel.title.collectAsState()
 
         Scaffold(
             modifier = Modifier.fillMaxSize(),
-            topBar = {
-                TopAppBar(
-                    title = { Text(text = title) }
-                )
-            },
+            topBar = { TopBar(title = title) },
             bottomBar = {
                 BottomBar(
                     allScreens = taskDestinationBottomBar,
@@ -64,15 +61,5 @@ fun TaskApp() {
                 modifier = Modifier.padding(innerPadding)
             )
         }
-    }
-}
-
-private fun getTitleFromRoute(route: String?): String {
-    return when {
-        route == TaskList::class.simpleName?.lowercase() -> "Mis Tareas"
-        route == CreateTask::class.simpleName?.lowercase() -> "Crear Tarea"
-        route?.startsWith(EditTask::class.simpleName?.lowercase() ?: "") == true -> "Editar Tarea"
-        route == AccountSettings::class.simpleName?.lowercase() -> "Ajustes"
-        else -> "Task App"
     }
 }
