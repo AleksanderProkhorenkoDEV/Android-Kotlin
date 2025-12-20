@@ -23,9 +23,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.first_movile_app.R
-import com.example.first_movile_app.ui.components.InputLabel
+import com.example.first_movile_app.ui.components.inputs.InputLabel
 import com.example.first_movile_app.ui.components.ObserverUiEvents
-import com.example.first_movile_app.ui.components.TextFieldCustom
+import com.example.first_movile_app.ui.components.inputs.TextFieldCustom
 import com.example.first_movile_app.viewModel.CreateTaskViewModel
 import com.example.first_movile_app.viewModel.ViewModalContainer
 

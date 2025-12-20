@@ -1,4 +1,4 @@
-package com.example.first_movile_app.ui.components
+package com.example.first_movile_app.ui.components.bars
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text

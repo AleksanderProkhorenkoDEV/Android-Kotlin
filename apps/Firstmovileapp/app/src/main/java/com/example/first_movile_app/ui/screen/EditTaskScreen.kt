@@ -14,7 +14,6 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -24,11 +23,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.first_movile_app.R
-import com.example.first_movile_app.ui.components.InputLabel
+import com.example.first_movile_app.ui.components.inputs.InputLabel
 import com.example.first_movile_app.ui.components.ObserverUiEvents
-import com.example.first_movile_app.ui.components.TextFieldCustom
+import com.example.first_movile_app.ui.components.inputs.TextFieldCustom
 import com.example.first_movile_app.viewModel.EditTaskViewModel
-import com.example.first_movile_app.viewModel.TaskViewModel
 import com.example.first_movile_app.viewModel.ViewModalContainer
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

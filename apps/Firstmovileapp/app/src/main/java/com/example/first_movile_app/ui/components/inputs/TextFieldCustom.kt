@@ -1,4 +1,4 @@
-package com.example.first_movile_app.ui.components
+package com.example.first_movile_app.ui.components.inputs
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

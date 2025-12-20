@@ -1,4 +1,4 @@
-package com.example.first_movile_app.ui.components
+package com.example.first_movile_app.ui.components.inputs
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
