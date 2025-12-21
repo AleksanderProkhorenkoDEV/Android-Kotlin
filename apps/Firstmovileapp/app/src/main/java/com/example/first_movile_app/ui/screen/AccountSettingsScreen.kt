@@ -9,7 +9,6 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun AccountSettingsScreen(
-    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = Modifier.fillMaxWidth()

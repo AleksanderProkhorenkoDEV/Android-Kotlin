@@ -3,7 +3,6 @@ package com.example.first_movile_app.ui.components
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.copy
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
