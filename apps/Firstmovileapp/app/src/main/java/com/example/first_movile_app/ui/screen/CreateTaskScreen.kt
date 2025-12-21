@@ -33,72 +33,60 @@ import com.example.first_movile_app.viewModel.ViewModalContainer
 @Composable
 fun CreateTaskScreen(
     modifier: Modifier = Modifier,
-    onNavigationBack: () -> Unit,
+    snackbarHostState: SnackbarHostState,
     onNavigationList: () -> Unit,
     viewModel: CreateTaskViewModel = viewModel(factory = ViewModalContainer.Factory)
 ) {
     val uiState = viewModel.uiState.collectAsState()
-    val snackbar = remember { SnackbarHostState() }
 
     ObserverUiEvents(
         events = viewModel.uiEvent,
-        snackBarHostState = snackbar,
+        snackBarHostState = snackbarHostState,
         onNavigationBack = { onNavigationList() },
         onRetry = { viewModel.saveTask() }
     )
 
-    Scaffold(
-        snackbarHost = { SnackbarHost(snackbar) },
-    ) { innerPadding ->
-        Box(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(innerPadding)
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+            TextFieldCustom(
+                value = uiState.value.name,
+                onValueChange = { newName -> viewModel.onChangeName(newName) },
+                placeholder = stringResource(R.string.create_form_name_placeholder),
+                inputLabel = { InputLabel(value = stringResource(R.string.create_form_name_label)) },
+                errorList = uiState.value.nameError
+            )
+            Spacer(modifier = Modifier.padding(12.dp))
+            TextFieldCustom(
+                value = uiState.value.description,
+                onValueChange = { newDescription -> viewModel.onChangeDescription(newDescription) },
+                placeholder = stringResource(R.string.create_form_description_placeholder),
+                inputLabel = { InputLabel(value = stringResource(R.string.create_form_description_label)) },
+                errorList = uiState.value.descriptionError
+            )
+            Spacer(modifier = Modifier.padding(12.dp))
+            Button(
+                onClick = { viewModel.saveTask() },
+                enabled = !uiState.value.isLoading,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = colorResource(R.color.accent_primary),
+                    contentColor = colorResource(R.color.primary)
+                )
             ) {
-                TextFieldCustom(
-                    value = uiState.value.name,
-                    onValueChange = { newName -> viewModel.onChangeName(newName) },
-                    placeholder = stringResource(R.string.create_form_name_placeholder),
-                    inputLabel = { InputLabel(value = stringResource(R.string.create_form_name_label)) },
-                    errorList = uiState.value.nameError
-                )
-                Spacer(modifier = Modifier.padding(12.dp))
-                TextFieldCustom(
-                    value = uiState.value.description,
-                    onValueChange = { newDescription -> viewModel.onChangeDescription(newDescription) },
-                    placeholder = stringResource(R.string.create_form_description_placeholder),
-                    inputLabel = { InputLabel(value = stringResource(R.string.create_form_description_label)) },
-                    errorList = uiState.value.descriptionError
-                )
-                Spacer(modifier = Modifier.padding(12.dp))
-                Button(
-                    onClick = { viewModel.saveTask() },
-                    enabled = !uiState.value.isLoading,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = colorResource(R.color.accent_primary),
-                        contentColor = colorResource(R.color.primary)
-                    )
-                ) {
-                    if (uiState.value.isLoading) {
-                        Text(text = stringResource(R.string.loading_button))
-                    } else {
-                        Text(text = stringResource(R.string.create_task_button))
-                    }
+                if (uiState.value.isLoading) {
+                    Text(text = stringResource(R.string.loading_button))
+                } else {
+                    Text(text = stringResource(R.string.create_task_button))
                 }
             }
-
         }
+
     }
-}
 
-
-@Preview
-@Composable
-fun CreateTaskScreenPreview() {
-    CreateTaskScreen(onNavigationBack = {}, onNavigationList = {})
 }
