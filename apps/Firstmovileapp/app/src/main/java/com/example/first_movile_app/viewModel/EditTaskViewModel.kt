@@ -107,9 +107,6 @@ class EditTaskViewModel(
                 )
             } catch (e: Exception) {
                 Log.d("Error", "Error al updatear la tarea")
-            } finally {
-                Log.d("INFO", "pasa por el finllay")
-                _uiState.update { it.copy(isLoading = false) }
                 _uiEvent.emit(
                     value = UiEvent.SnackMessage(
                         message = "An unexpected error has occurred.",
@@ -125,6 +122,8 @@ class EditTaskViewModel(
                         isChecked = currentState.isChecked
                     )
                 }
+            } finally {
+                _uiState.update { it.copy(isLoading = false) }
             }
         }
 
