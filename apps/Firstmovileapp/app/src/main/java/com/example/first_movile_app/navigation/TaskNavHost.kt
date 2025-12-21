@@ -51,9 +51,7 @@ fun TaskNavHost(
 
         composable<EditTask> { backStackEntry ->
             EditTaskScreen(
-                onNavigationBack = {
-                    navController.popBackStack()
-                },
+                snackbarHostState = snackbarHostState,
                 onNavigationList = {
                     navController.navigate(TaskList)
                 })
