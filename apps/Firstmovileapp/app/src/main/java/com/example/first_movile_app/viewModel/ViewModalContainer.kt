@@ -21,9 +21,6 @@ object ViewModalContainer {
                 taskRepository = taskApplication().container.taskRepository
             )
         }
-        initializer<TopAppBarViewModel> {
-            TopAppBarViewModel()
-        }
     }
 }
 
