@@ -1,6 +1,7 @@
 package com.example.first_movile_app.ui.screen
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -47,44 +48,40 @@ fun EditTaskScreen(
         onRetry = { viewModel.updateTask() }
     )
 
-    Box(
+    Column(
         modifier = Modifier
-            .fillMaxSize()
+            .background(color = colorResource(R.color.primary))
+            .padding(8.dp)
+            .fillMaxSize(),
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
+        TextFieldCustom(
+            value = uiState.text,
+            onValueChange = { newText -> viewModel.onChangeText(newText) },
+            placeholder = stringResource(R.string.create_form_name_placeholder),
+            inputLabel = { InputLabel(value = stringResource(R.string.create_form_name_label)) },
+            errorList = uiState.nameError
+        )
+        Spacer(modifier = Modifier.padding(12.dp))
+        TextFieldCustom(
+            value = uiState.description,
+            onValueChange = { newDescription -> viewModel.onChangeDescription(newDescription) },
+            placeholder = stringResource(R.string.create_form_name_placeholder),
+            inputLabel = { InputLabel(value = stringResource(R.string.create_form_name_label)) },
+            errorList = uiState.descriptionError
+        )
+        Spacer(modifier = Modifier.padding(12.dp))
+        Button(
+            onClick = { viewModel.updateTask() },
+            enabled = !uiState.isLoading,
+            colors = ButtonDefaults.buttonColors(
+                containerColor = colorResource(R.color.accent_primary),
+                contentColor = colorResource(R.color.primary)
+            )
         ) {
-            TextFieldCustom(
-                value = uiState.text,
-                onValueChange = { newText -> viewModel.onChangeText(newText) },
-                placeholder = stringResource(R.string.create_form_name_placeholder),
-                inputLabel = { InputLabel(value = stringResource(R.string.create_form_name_label)) },
-                errorList = uiState.nameError
-            )
-            Spacer(modifier = Modifier.padding(12.dp))
-            TextFieldCustom(
-                value = uiState.description,
-                onValueChange = { newDescription -> viewModel.onChangeDescription(newDescription) },
-                placeholder = stringResource(R.string.create_form_name_placeholder),
-                inputLabel = { InputLabel(value = stringResource(R.string.create_form_name_label)) },
-                errorList = uiState.descriptionError
-            )
-            Spacer(modifier = Modifier.padding(12.dp))
-            Button(
-                onClick = { viewModel.updateTask() },
-                enabled = !uiState.isLoading,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = colorResource(R.color.accent_primary),
-                    contentColor = colorResource(R.color.primary)
-                )
-            ) {
-                if (uiState.isLoading) {
-                    Text(text = stringResource(R.string.loading_button))
-                } else {
-                    Text(text = stringResource(R.string.edit_task))
-                }
+            if (uiState.isLoading) {
+                Text(text = stringResource(R.string.loading_button))
+            } else {
+                Text(text = stringResource(R.string.edit_task))
             }
         }
     }
