@@ -33,63 +33,57 @@ import com.example.first_movile_app.viewModel.ViewModalContainer
 @Composable
 fun EditTaskScreen(
     modifier: Modifier = Modifier,
-    onNavigationBack: () -> Unit,
+    snackbarHostState: SnackbarHostState,
     onNavigationList: () -> Unit,
     viewModel: EditTaskViewModel = viewModel(factory = ViewModalContainer.Factory)
 ) {
 
     val uiState by viewModel.uiState.collectAsState()
-    val snackbar = remember { SnackbarHostState() }
 
     ObserverUiEvents(
         events = viewModel.uiEvent,
-        snackBarHostState = snackbar,
+        snackBarHostState = snackbarHostState,
         onNavigationBack = { onNavigationList() },
         onRetry = { viewModel.updateTask() }
     )
 
-    Scaffold(
-        snackbarHost = { SnackbarHost(snackbar) },
-    ) { innerPadding ->
-        Box(
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
+                .fillMaxWidth()
+                .padding(16.dp),
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
+            TextFieldCustom(
+                value = uiState.text,
+                onValueChange = { newText -> viewModel.onChangeText(newText) },
+                placeholder = stringResource(R.string.create_form_name_placeholder),
+                inputLabel = { InputLabel(value = stringResource(R.string.create_form_name_label)) },
+                errorList = uiState.nameError
+            )
+            Spacer(modifier = Modifier.padding(12.dp))
+            TextFieldCustom(
+                value = uiState.description,
+                onValueChange = { newDescription -> viewModel.onChangeDescription(newDescription) },
+                placeholder = stringResource(R.string.create_form_name_placeholder),
+                inputLabel = { InputLabel(value = stringResource(R.string.create_form_name_label)) },
+                errorList = uiState.descriptionError
+            )
+            Spacer(modifier = Modifier.padding(12.dp))
+            Button(
+                onClick = { viewModel.updateTask() },
+                enabled = !uiState.isLoading,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = colorResource(R.color.accent_primary),
+                    contentColor = colorResource(R.color.primary)
+                )
             ) {
-                TextFieldCustom(
-                    value = uiState.text,
-                    onValueChange = { newText -> viewModel.onChangeText(newText) },
-                    placeholder = stringResource(R.string.create_form_name_placeholder),
-                    inputLabel = { InputLabel(value = stringResource(R.string.create_form_name_label)) },
-                    errorList = uiState.nameError
-                )
-                Spacer(modifier = Modifier.padding(12.dp))
-                TextFieldCustom(
-                    value = uiState.description,
-                    onValueChange = { newDescription -> viewModel.onChangeDescription(newDescription) },
-                    placeholder = stringResource(R.string.create_form_name_placeholder),
-                    inputLabel = { InputLabel(value = stringResource(R.string.create_form_name_label)) },
-                    errorList = uiState.descriptionError
-                )
-                Spacer(modifier = Modifier.padding(12.dp))
-                Button(
-                    onClick = { viewModel.updateTask() },
-                    enabled = !uiState.isLoading,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = colorResource(R.color.accent_primary),
-                        contentColor = colorResource(R.color.primary)
-                    )
-                ) {
-                    if (uiState.isLoading) {
-                        Text(text = stringResource(R.string.loading_button))
-                    } else {
-                        Text(text = stringResource(R.string.edit_task))
-                    }
+                if (uiState.isLoading) {
+                    Text(text = stringResource(R.string.loading_button))
+                } else {
+                    Text(text = stringResource(R.string.edit_task))
                 }
             }
         }
