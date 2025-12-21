@@ -106,7 +106,7 @@ class EditTaskViewModel(
                     )
                 )
             } catch (e: Exception) {
-                Log.d("Error", "Error al updatear la tarea")
+                Log.d("Error", "Error al updatear la tarea $e")
                 _uiEvent.emit(
                     value = UiEvent.SnackMessage(
                         message = "An unexpected error has occurred.",
