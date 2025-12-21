@@ -18,7 +18,11 @@ object ViewModalContainer {
         initializer<EditTaskViewModel> {
             EditTaskViewModel(
                 savedStateHandle = this.createSavedStateHandle(),
-                taskRepository = taskApplication().container.taskRepository)
+                taskRepository = taskApplication().container.taskRepository
+            )
+        }
+        initializer<TopAppBarViewModel> {
+            TopAppBarViewModel()
         }
     }
 }
