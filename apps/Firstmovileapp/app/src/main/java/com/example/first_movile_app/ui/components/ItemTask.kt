@@ -3,6 +3,7 @@ package com.example.first_movile_app.ui.components
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.copy
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,6 +20,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,8 +29,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.first_movile_app.R
@@ -47,20 +51,36 @@ fun ItemTask(
 
     var isExpanded by rememberSaveable { mutableStateOf(false) }
 
+    val textStyle = if (isChecked) {
+        MaterialTheme.typography.bodyLarge.copy(textDecoration = TextDecoration.LineThrough)
+    } else {
+        MaterialTheme.typography.bodyLarge
+    }
+
+    val backgroundColor = if (isChecked) {
+        colorResource(R.color.secondary).copy(alpha = 0.6f)
+    } else {
+        colorResource(R.color.secondary)
+    }
+
+    val contentAlpha = if (isChecked) 0.6f else 1f
+
+
     Column(
         modifier = modifier
             .padding(8.dp)
             .fillMaxWidth(1f)
             .animateContentSize()
+            .alpha(contentAlpha)
             .background(
-                color = colorResource(R.color.secondary),
+                color = backgroundColor,
                 shape = RoundedCornerShape(8.dp)
             ),
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Row(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth(1f),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
@@ -68,6 +88,7 @@ fun ItemTask(
             Text(
                 text = task.text,
                 modifier = Modifier.padding(horizontal = 8.dp),
+                style = textStyle
             )
             Row {
                 CheckButton(isChecked, callbackChecked = callbackChecked)
