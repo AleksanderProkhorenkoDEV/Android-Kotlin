@@ -2,6 +2,7 @@ package com.example.first_movile_app.navigation
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -22,6 +23,7 @@ import com.example.first_movile_app.R
 @Composable
 fun TaskNavHost(
     navController: NavHostController,
+    snackbarHostState: SnackbarHostState,
     modifier: Modifier,
 ) {
     NavHost(
@@ -36,9 +38,7 @@ fun TaskNavHost(
         }
         composable<CreateTask> {
             CreateTaskScreen(
-                onNavigationBack = {
-                    navController.popBackStack()
-                },
+                snackbarHostState = snackbarHostState,
                 onNavigationList = {
                     navController.navigate(TaskList)
                 })
