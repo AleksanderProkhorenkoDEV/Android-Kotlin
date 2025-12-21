@@ -14,7 +14,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.first_movile_app.navigation.AccountSettings
@@ -27,17 +26,13 @@ import com.example.first_movile_app.navigation.isTopLevelRoute
 import com.example.first_movile_app.navigation.taskDestinationBottomBar
 import com.example.first_movile_app.ui.components.bars.BottomBar
 import com.example.first_movile_app.ui.components.bars.TopBar
-import com.example.first_movile_app.viewModel.TopAppBarViewModel
-import com.example.first_movile_app.viewModel.ViewModalContainer
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun TaskApp(
-    viewModel: TopAppBarViewModel = viewModel(factory = ViewModalContainer.Factory)
-) {
+fun TaskApp() {
     FirstmovileappTheme {
         val navController = rememberNavController()
 
@@ -60,7 +55,7 @@ fun TaskApp(
             title to canNavigateBack
         }
 
-        val (title, canNavigateBack) = appBarState
+        val (title) = appBarState
         val snackbar = remember { SnackbarHostState() }
 
         Scaffold(
