@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -44,7 +45,7 @@ fun EditTaskScreen(
 
     Column(
         modifier = Modifier
-            .background(color = colorResource(R.color.primary))
+            .background(color = MaterialTheme.colorScheme.background)
             .padding(8.dp)
             .fillMaxSize(),
     ) {
@@ -68,8 +69,8 @@ fun EditTaskScreen(
             onClick = { viewModel.updateTask() },
             enabled = !uiState.isLoading,
             colors = ButtonDefaults.buttonColors(
-                containerColor = colorResource(R.color.accent_primary),
-                contentColor = colorResource(R.color.primary)
+                containerColor = MaterialTheme.colorScheme.tertiary,
+                contentColor = MaterialTheme.colorScheme.onTertiary
             )
         ) {
             if (uiState.isLoading) {

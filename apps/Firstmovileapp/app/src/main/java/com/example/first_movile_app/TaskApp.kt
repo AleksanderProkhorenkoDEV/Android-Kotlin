@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
@@ -88,12 +89,12 @@ fun TaskApp() {
                         snackbarData = data,
                         modifier = Modifier.padding(16.dp),
                         shape = RoundedCornerShape(8.dp),
-                        containerColor = colorResource(R.color.secondary),
-                        contentColor = colorResource(R.color.text_primary)
+                        containerColor = MaterialTheme.colorScheme.background,
+                        contentColor = MaterialTheme.colorScheme.onBackground
                     )
                 }
             },
-            containerColor = colorResource(R.color.surface),
+            containerColor = MaterialTheme.colorScheme.surface,
         ) { innerPadding ->
             TaskNavHost(
                 navController = navController,
