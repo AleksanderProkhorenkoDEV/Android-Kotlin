@@ -15,8 +15,10 @@ import com.example.first_movile_app.ui.screen.MainScreen
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun TaskNavHost(
+    isDarkTheme: Boolean,
     navController: NavHostController,
     snackbarHostState: SnackbarHostState,
+    onToggleTheme: () -> Unit,
     modifier: Modifier,
 ) {
     NavHost(
@@ -37,7 +39,10 @@ fun TaskNavHost(
                 })
         }
         composable<AccountSettings> {
-            AccountSettingsScreen()
+            AccountSettingsScreen(
+                onToggleTheme = onToggleTheme,
+                isDarkTheme = isDarkTheme
+            )
         }
 
         composable<EditTask> { backStackEntry ->

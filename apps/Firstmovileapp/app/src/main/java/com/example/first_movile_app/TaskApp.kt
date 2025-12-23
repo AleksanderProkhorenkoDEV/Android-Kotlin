@@ -13,10 +13,12 @@ import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.first_movile_app.navigation.AccountSettings
@@ -29,16 +31,23 @@ import com.example.first_movile_app.navigation.isTopLevelRoute
 import com.example.first_movile_app.navigation.taskDestinationBottomBar
 import com.example.first_movile_app.ui.components.bars.BottomBar
 import com.example.first_movile_app.ui.components.bars.TopBar
+import com.example.first_movile_app.viewModel.SettingsViewModel
+import com.example.first_movile_app.viewModel.ViewModalContainer
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun TaskApp() {
-    FirstmovileappTheme {
-        val navController = rememberNavController()
+fun TaskApp(
+    settingsViewModel: SettingsViewModel = viewModel(factory = ViewModalContainer.Factory)
+) {
+    val isDarkTheme by settingsViewModel.isDarkTheme.collectAsState()
 
+    FirstmovileappTheme(
+        darkTheme = isDarkTheme,
+    ) {
+        val navController = rememberNavController()
         //Get the state of navigation
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
@@ -99,6 +108,8 @@ fun TaskApp() {
                 navController = navController,
                 modifier = Modifier.padding(innerPadding),
                 snackbarHostState = snackbar,
+                onToggleTheme = { settingsViewModel.toggleTheme() },
+                isDarkTheme = isDarkTheme
             )
         }
     }
