@@ -21,16 +21,16 @@ private val LightColorScheme = lightColorScheme(
     // Elementos secundarios
     secondary = LightSecondary,
     onSecondary = LightText,
-    secondaryContainer = LightSecondary.copy(alpha = 0.3f),
-    onSecondaryContainer = LightPrimary,
+    secondaryContainer = LightTertiary,
+    onSecondaryContainer = LightText,
 
-    // Fondo y superficie
+    // Fondo y superficie - DIFERENTES
     background = LightBackground,
     onBackground = LightText,
-    surface = LightBackground,
+    surface = Color.White,                   // Cards/TopBars más blancos
     onSurface = LightText,
-    surfaceVariant = LightSecondary,
-    onSurfaceVariant = LightPrimary,
+    surfaceVariant = LightSecondary,         // Variantes ligeramente coloreadas
+    onSurfaceVariant = LightText.copy(alpha = 0.7f),
 
     // Errores
     error = Color(0xFFBA1A1A),
@@ -38,17 +38,17 @@ private val LightColorScheme = lightColorScheme(
     errorContainer = Color(0xFFFFDAD6),
     onErrorContainer = Color(0xFF410002),
 
-    // Éxito/éxito (opcional)
+    // Éxito
     tertiary = LightAccent,
     onTertiary = Color.White,
-    tertiaryContainer = LightSecondary,
-    onTertiaryContainer = LightPrimary,
+    tertiaryContainer = LightTertiary,
+    onTertiaryContainer = LightText,
 
     // Estados
-    outline = LightPrimary.copy(alpha = 0.5f),
-    outlineVariant = LightSecondary,
+    outline = LightSecondary,
+    outlineVariant = LightTertiary,
 
-    // Fondo inverso (para toolbars, etc)
+    // Fondo inverso
     inverseSurface = LightText,
     inverseOnSurface = LightBackground,
     inversePrimary = LightPrimary.copy(alpha = 0.2f)
@@ -59,21 +59,21 @@ private val DarkColorScheme = darkColorScheme(
     primary = DarkPrimary,
     onPrimary = Color.White,
     primaryContainer = DarkSecondary,
-    onPrimaryContainer = DarkSecondary,
+    onPrimaryContainer = Color.White,
 
     // Elementos secundarios
     secondary = DarkSecondary,
-    onSecondary = DarkText,
-    secondaryContainer = DarkSecondary.copy(alpha = 0.3f),
-    onSecondaryContainer = DarkText,
+    onSecondary = Color.White,
+    secondaryContainer = DarkTertiary,
+    onSecondaryContainer = Color.White,
 
-    // Fondo y superficie
-    background = DarkBackground,
+    // Fondo y superficie - ¡JERARQUÍA CLARA!
+    background = DarkBackground,           // #010104 - El más oscuro
     onBackground = DarkText,
-    surface = DarkBackground,
+    surface = DarkSurface,                 // #020024 - Un poco más claro
     onSurface = DarkText,
-    surfaceVariant = DarkSecondary,
-    onSurfaceVariant = DarkText,
+    surfaceVariant = DarkSurfaceVariant,   // #0A0A3A - Para variantes
+    onSurfaceVariant = DarkText.copy(alpha = 0.8f),
 
     // Errores
     error = Color(0xFFFFB4AB),
@@ -81,17 +81,17 @@ private val DarkColorScheme = darkColorScheme(
     errorContainer = Color(0xFF93000A),
     onErrorContainer = Color(0xFFFFDAD6),
 
-    // Éxito/éxito (opcional)
+    // Éxito
     tertiary = DarkAccent,
     onTertiary = Color.White,
-    tertiaryContainer = DarkSecondary,
+    tertiaryContainer = DarkTertiary,
     onTertiaryContainer = DarkText,
 
     // Estados
-    outline = DarkText.copy(alpha = 0.5f),
-    outlineVariant = DarkSecondary,
+    outline = DarkTertiary,                // #1A174A
+    outlineVariant = DarkTertiary.copy(alpha = 0.5f),
 
-    // Fondo inverso (para toolbars, etc)
+    // Fondo inverso
     inverseSurface = DarkText,
     inverseOnSurface = DarkBackground,
     inversePrimary = DarkPrimary.copy(alpha = 0.2f)
