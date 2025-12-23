@@ -35,7 +35,7 @@ fun TextFieldCustom(
         errorList?.forEach {
             Text(
                 text = getMessage(it),
-                color = MaterialTheme.colorScheme.onError,
+                color = MaterialTheme.colorScheme.error,
                 modifier = Modifier.padding(vertical = 8.dp)
             )
         }
