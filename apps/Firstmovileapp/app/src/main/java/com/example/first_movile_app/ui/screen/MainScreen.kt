@@ -11,11 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.first_movile_app.R
 import com.example.first_movile_app.ui.components.ItemListColumn
 import com.example.first_movile_app.viewModel.TaskViewModel
 import com.example.first_movile_app.viewModel.ViewModalContainer
