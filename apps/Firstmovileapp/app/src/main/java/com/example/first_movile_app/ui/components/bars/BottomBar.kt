@@ -8,14 +8,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.first_movile_app.R
 import com.example.first_movile_app.navigation.TaskDestination
 import com.example.first_movile_app.navigation.taskDestinationBottomBar
 
@@ -39,7 +38,7 @@ fun BottomBar(
             .height(68.dp)
             .shadow(elevation = 10.dp, shape = shape)
             .background(
-                color = colorResource(R.color.surface),
+                color = MaterialTheme.colorScheme.surface,
                 shape = shape,
             ),
         horizontalArrangement = Arrangement.SpaceAround,
@@ -52,7 +51,7 @@ fun BottomBar(
                 Icon(
                     imageVector = screen.icon,
                     contentDescription = screen.title,
-                    tint = colorResource(R.color.text_primary)
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
         }

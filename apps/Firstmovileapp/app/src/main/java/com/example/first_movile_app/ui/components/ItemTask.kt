@@ -29,7 +29,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -57,9 +56,9 @@ fun ItemTask(
     }
 
     val backgroundColor = if (isChecked) {
-        colorResource(R.color.secondary).copy(alpha = 0.6f)
+        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f)
     } else {
-        colorResource(R.color.secondary)
+        MaterialTheme.colorScheme.surface
     }
 
     val contentAlpha = if (isChecked) 0.6f else 1f
@@ -101,7 +100,7 @@ fun ItemTask(
             ) {
                 HorizontalDivider(
                     thickness = 2.dp,
-                    color = colorResource(R.color.outline)
+                    color = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f)
                 )
                 Spacer(modifier = Modifier.padding(vertical = 4.dp))
                 Text(
@@ -114,8 +113,8 @@ fun ItemTask(
                     Button(
                         onClick = { onNavigateToEditScreen(task.id.toInt()) },
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = colorResource(R.color.tertiary),
-                            contentColor = colorResource(R.color.text_secondary)
+                            containerColor = MaterialTheme.colorScheme.tertiary,
+                            contentColor = MaterialTheme.colorScheme.onTertiary
                         )
                     ) {
                         Icon(
@@ -132,8 +131,8 @@ fun ItemTask(
                     Button(
                         onClick = { callbackToDelete(task) },
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = colorResource(R.color.accent_error),
-                            contentColor = colorResource(R.color.text_primary)
+                            containerColor = MaterialTheme.colorScheme.error,
+                            contentColor = MaterialTheme.colorScheme.onError
                         )
                     ) {
                         Icon(
