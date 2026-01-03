@@ -19,13 +19,20 @@ fun NavHostApp(navController: NavHostController, modifier: Modifier) {
         modifier = modifier
     ) {
         composable<Login> {
-            LoginScreen()
+            LoginScreen(
+                callbackNavigationToRegister = { navController.navigate(route = Register) },
+                callbackNavigationToForgotPassword = { navController.navigate(route = ForgotPassword) }
+            )
         }
         composable<Register> {
-            RegisterScreen()
+            RegisterScreen(
+                callbackNavigationToLogin = { navController.navigate(route = Login) }
+            )
         }
         composable<ForgotPassword> {
-            ForgotPasswordScreen()
+            ForgotPasswordScreen(
+                callbackNavigationBack = { navController.popBackStack() }
+            )
 
         }
         composable<Dashboard> {
