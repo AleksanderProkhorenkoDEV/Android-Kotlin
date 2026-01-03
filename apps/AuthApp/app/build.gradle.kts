@@ -48,6 +48,8 @@ dependencies {
     //Nav dependencies
     implementation("androidx.navigation:navigation-compose:$navVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+    //ViewModel dependencies
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
