@@ -21,7 +21,8 @@ fun NavHostApp(navController: NavHostController, modifier: Modifier) {
         composable<Login> {
             LoginScreen(
                 callbackNavigationToRegister = { navController.navigate(route = Register) },
-                callbackNavigationToForgotPassword = { navController.navigate(route = ForgotPassword) }
+                callbackNavigationToForgotPassword = { navController.navigate(route = ForgotPassword) },
+                callbackOnLoggingSuccess = { navController.navigate(route = Dashboard)}
             )
         }
         composable<Register> {
