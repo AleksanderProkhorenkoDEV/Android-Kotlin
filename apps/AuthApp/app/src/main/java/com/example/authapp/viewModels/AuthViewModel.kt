@@ -16,7 +16,8 @@ class AuthViewModel: ViewModel() {
     private val _authState = MutableStateFlow<AuthState>(AuthState.Unauthenticated)
     val authState: StateFlow<AuthState> = _authState.asStateFlow()
 
-    fun login(){}
+    fun login(email: String, password: String){
+    }
 
     fun logout(){}
 }
