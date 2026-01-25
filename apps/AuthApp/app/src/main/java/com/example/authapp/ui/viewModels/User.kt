@@ -1,4 +1,4 @@
-package com.example.authapp.viewModels
+package com.example.authapp.ui.viewModels
 
 data class User(
     val email: String,
