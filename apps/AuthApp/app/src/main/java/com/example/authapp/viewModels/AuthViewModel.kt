@@ -20,4 +20,6 @@ class AuthViewModel: ViewModel() {
     }
 
     fun logout(){}
+
+    fun register(){}
 }
