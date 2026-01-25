@@ -8,11 +8,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.authapp.viewModels.AuthState
-import com.example.authapp.viewModels.AuthViewModel
-import com.example.authapp.viewModels.ViewModelContainer
+import com.example.authapp.ui.viewModels.AuthState
+import com.example.authapp.ui.viewModels.AuthViewModel
+import com.example.authapp.ui.viewModels.ViewModelContainer
 
 @Composable
 fun LoginScreen(
