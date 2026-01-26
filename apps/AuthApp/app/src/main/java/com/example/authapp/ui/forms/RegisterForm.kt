@@ -6,7 +6,8 @@ data class RegisterForm(
     val name: String = "",
     val email: String = "",
     val password: String = "",
-    val confirmPassword: String = ""
+    val confirmPassword: String = "",
+    val termsAndConditions: Boolean = false
 ){
     fun validate(): ValidationResult {
         return when{
