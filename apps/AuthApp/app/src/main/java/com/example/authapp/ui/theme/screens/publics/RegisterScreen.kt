@@ -17,12 +17,14 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -36,6 +38,8 @@ fun RegisterScreen(
     modifier: Modifier = Modifier,
     viewModel: AuthViewModel = viewModel(factory = ViewModelContainer.Factory)
 ) {
+
+    val inputStates = viewModel.registerState.collectAsState()
 
     Column(
         modifier = modifier
@@ -62,34 +66,52 @@ fun RegisterScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             TextField(
-                value = "",
-                onValueChange = {},
+                value = inputStates.value.name,
+                onValueChange = { newName ->
+                    viewModel.updateRegisterForm(
+                        inputStates.value.copy(name = newName)
+                    )
+                },
                 label = { Text("Write your username") },
                 placeholder = { Text("Ej: Mathew") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                 modifier = Modifier.fillMaxWidth()
             )
             TextField(
-                value = "",
-                onValueChange = {},
+                value = inputStates.value.email,
+                onValueChange = { newEmail ->
+                    viewModel.updateRegisterForm(
+                        inputStates.value.copy(email = newEmail)
+                    )
+                },
                 label = { Text("Write email") },
                 placeholder = { Text("Ej: mathew@gmail.com") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 modifier = Modifier.fillMaxWidth()
             )
             TextField(
-                value = "",
-                onValueChange = {},
+                value = inputStates.value.password,
+                onValueChange = { newPassword ->
+                    viewModel.updateRegisterForm(
+                        inputStates.value.copy(password = newPassword)
+                    )
+                },
                 label = { Text("Write your password") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                visualTransformation = PasswordVisualTransformation()
             )
             TextField(
-                value = "",
-                onValueChange = {},
+                value = inputStates.value.confirmPassword,
+                onValueChange = { newConfirmPassword ->
+                    viewModel.updateRegisterForm(
+                        inputStates.value.copy(confirmPassword = newConfirmPassword)
+                    )
+                },
                 label = { Text("Confirm your password") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                visualTransformation = PasswordVisualTransformation()
             )
         }
         Row(
@@ -98,8 +120,12 @@ fun RegisterScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Checkbox(
-                checked = false,
-                onCheckedChange = {}
+                checked = inputStates.value.termsAndConditions,
+                onCheckedChange = { newTermAndCondition ->
+                    viewModel.updateRegisterForm(
+                        inputStates.value.copy(termsAndConditions = newTermAndCondition)
+                    )
+                }
             )
             Text(
                 text = "I agree to the terms and conditions"
