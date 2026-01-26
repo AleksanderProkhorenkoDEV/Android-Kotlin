@@ -40,6 +40,7 @@ fun RegisterScreen(
 ) {
 
     val inputStates = viewModel.registerState.collectAsState()
+    val inputError = viewModel.registerErrors.collectAsState()
 
     Column(
         modifier = modifier
@@ -75,7 +76,11 @@ fun RegisterScreen(
                 label = { Text("Write your username") },
                 placeholder = { Text("Ej: Mathew") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                isError = inputError.value.containsKey("name"),
+                supportingText = {
+                    Text(text = inputError.value["name"] ?: "")
+                }
             )
             TextField(
                 value = inputStates.value.email,
@@ -87,7 +92,11 @@ fun RegisterScreen(
                 label = { Text("Write email") },
                 placeholder = { Text("Ej: mathew@gmail.com") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                isError = inputError.value.containsKey("email"),
+                supportingText = {
+                    Text(text = inputError.value["email"] ?: "")
+                }
             )
             TextField(
                 value = inputStates.value.password,
@@ -99,7 +108,11 @@ fun RegisterScreen(
                 label = { Text("Write your password") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 modifier = Modifier.fillMaxWidth(),
-                visualTransformation = PasswordVisualTransformation()
+                visualTransformation = PasswordVisualTransformation(),
+                isError = inputError.value.containsKey("password"),
+                supportingText = {
+                    Text(text = inputError.value["password"] ?: "")
+                }
             )
             TextField(
                 value = inputStates.value.confirmPassword,
@@ -111,7 +124,11 @@ fun RegisterScreen(
                 label = { Text("Confirm your password") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 modifier = Modifier.fillMaxWidth(),
-                visualTransformation = PasswordVisualTransformation()
+                visualTransformation = PasswordVisualTransformation(),
+                isError = inputError.value.containsKey("confirmPassword"),
+                supportingText = {
+                    Text(text = inputError.value["confirmPassword"] ?: "")
+                }
             )
         }
         Row(
@@ -150,7 +167,7 @@ fun RegisterScreen(
         }
         Button(
             onClick = {
-                viewModel.register()
+                viewModel.register(viewModel.registerState.value)
             }
         ) {
             Text(
