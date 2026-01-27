@@ -14,10 +14,10 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.authapp.R
+import com.example.authapp.ui.forms.register.RegisterEvent
 import com.example.authapp.ui.viewModels.AuthViewModel
 import com.example.authapp.ui.viewModels.ViewModelContainer
 
@@ -39,8 +40,7 @@ fun RegisterScreen(
     viewModel: AuthViewModel = viewModel(factory = ViewModelContainer.Factory)
 ) {
 
-    val inputStates = viewModel.registerState.collectAsState()
-    val inputError = viewModel.registerErrors.collectAsState()
+    val state = viewModel.formState
 
     Column(
         modifier = modifier
@@ -67,86 +67,90 @@ fun RegisterScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             TextField(
-                value = inputStates.value.name,
+                value = state.name,
                 onValueChange = { newName ->
-                    viewModel.updateRegisterForm(
-                        inputStates.value.copy(name = newName)
-                    )
+                    viewModel.onEvent(RegisterEvent.NameChanged(newName))
                 },
                 label = { Text("Write your username") },
                 placeholder = { Text("Ej: Mathew") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                 modifier = Modifier.fillMaxWidth(),
-                isError = inputError.value.containsKey("name"),
+                isError = state.nameError != null,
                 supportingText = {
-                    Text(text = inputError.value["name"] ?: "")
+                    state.nameError?.let { Text(text = it) }
                 }
             )
             TextField(
-                value = inputStates.value.email,
+                value = state.email,
                 onValueChange = { newEmail ->
-                    viewModel.updateRegisterForm(
-                        inputStates.value.copy(email = newEmail)
-                    )
+                    viewModel.onEvent(RegisterEvent.EmailChanged(newEmail))
                 },
                 label = { Text("Write email") },
                 placeholder = { Text("Ej: mathew@gmail.com") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 modifier = Modifier.fillMaxWidth(),
-                isError = inputError.value.containsKey("email"),
+                isError = state.emailError != null,
                 supportingText = {
-                    Text(text = inputError.value["email"] ?: "")
+                    state.emailError?.let { Text(text = it) }
                 }
             )
             TextField(
-                value = inputStates.value.password,
+                value = state.password,
                 onValueChange = { newPassword ->
-                    viewModel.updateRegisterForm(
-                        inputStates.value.copy(password = newPassword)
-                    )
+                    viewModel.onEvent(RegisterEvent.PasswordChanged(newPassword))
                 },
                 label = { Text("Write your password") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 modifier = Modifier.fillMaxWidth(),
                 visualTransformation = PasswordVisualTransformation(),
-                isError = inputError.value.containsKey("password"),
+                isError = state.passwordError != null,
                 supportingText = {
-                    Text(text = inputError.value["password"] ?: "")
+                    state.passwordError?.let { Text(text = it) }
                 }
             )
             TextField(
-                value = inputStates.value.confirmPassword,
+                value = state.confirmPassword,
                 onValueChange = { newConfirmPassword ->
-                    viewModel.updateRegisterForm(
-                        inputStates.value.copy(confirmPassword = newConfirmPassword)
-                    )
+                    viewModel.onEvent(RegisterEvent.ConfirmPasswordChanged(newConfirmPassword))
                 },
                 label = { Text("Confirm your password") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 modifier = Modifier.fillMaxWidth(),
                 visualTransformation = PasswordVisualTransformation(),
-                isError = inputError.value.containsKey("confirmPassword"),
+                isError = state.confirmPasswordError != null,
                 supportingText = {
-                    Text(text = inputError.value["confirmPassword"] ?: "")
+                    state.confirmPasswordError?.let { Text(text = it) }
                 }
             )
         }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Checkbox(
-                checked = inputStates.value.termsAndConditions,
-                onCheckedChange = { newTermAndCondition ->
-                    viewModel.updateRegisterForm(
-                        inputStates.value.copy(termsAndConditions = newTermAndCondition)
-                    )
-                }
-            )
-            Text(
-                text = "I agree to the terms and conditions"
-            )
+        Column {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Checkbox(
+                    checked = state.termsAndConditions,
+                    onCheckedChange = { newTermAndCondition ->
+                        viewModel.onEvent(
+                            RegisterEvent.TermsAndConditionsChanged(
+                                newTermAndCondition
+                            )
+                        )
+                    }
+                )
+                Text(
+                    text = "I agree to the terms and conditions"
+                )
+            }
+            if (state.termsAndConditionsError != null) {
+                Text(
+                    text = state.termsAndConditionsError,
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(start = 12.dp)
+                )
+            }
         }
         Row(
             modifier = Modifier
@@ -167,7 +171,7 @@ fun RegisterScreen(
         }
         Button(
             onClick = {
-                viewModel.register(viewModel.registerState.value)
+                viewModel.register()
             }
         ) {
             Text(
