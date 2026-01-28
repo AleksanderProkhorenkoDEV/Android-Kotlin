@@ -9,7 +9,7 @@ import com.example.authapp.AuthApplication
 object ViewModelContainer{
     val Factory = viewModelFactory {
         initializer<AuthViewModel> {
-            AuthViewModel()
+            AuthViewModel(userRepository = authApplication().container.userRepository)
         }
     }
 }
