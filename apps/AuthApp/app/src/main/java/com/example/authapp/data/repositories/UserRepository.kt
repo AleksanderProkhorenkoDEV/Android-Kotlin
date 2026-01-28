@@ -26,6 +26,6 @@ class UserRepository(
     }
 
     private fun hashPassword(password: String): String {
-        return BCrypt.hashpw(password, BCrypt.gensalt());
+        return BCrypt.hashpw(password, BCrypt.gensalt())
     }
 }

@@ -1,6 +1,5 @@
 package com.example.authapp.ui.viewModels
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -13,12 +12,10 @@ import com.example.authapp.ui.forms.ValidationResult
 import com.example.authapp.ui.forms.register.RegisterEvent
 import com.example.authapp.ui.forms.register.RegisterForm
 import com.example.authapp.ui.forms.register.RegisterValidator
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 sealed class AuthState {
     object Unauthenticated : AuthState()
