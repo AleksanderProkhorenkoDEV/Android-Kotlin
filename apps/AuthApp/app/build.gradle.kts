@@ -47,6 +47,8 @@ dependencies {
     val navVersion = "2.9.6"
     val room_version = "2.8.4"
 
+    //Bcryp
+    implementation("org.mindrot:jbcrypt:0.4")
     // Room dependencies
     implementation("androidx.room:room-runtime:${room_version}")
     ksp("androidx.room:room-compiler:$room_version")
