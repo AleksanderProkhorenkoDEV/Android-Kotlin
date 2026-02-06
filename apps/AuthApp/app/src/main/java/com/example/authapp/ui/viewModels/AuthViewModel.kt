@@ -23,7 +23,6 @@ sealed class AuthState {
     data class Authenticated(val user: UserEntity) : AuthState()
     data class Error(val message: String) : AuthState()
 }
-
 class AuthViewModel(
     private val userRepository: UserRepository
 ) : ViewModel() {
